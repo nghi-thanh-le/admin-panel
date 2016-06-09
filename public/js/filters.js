@@ -62,8 +62,8 @@ angular.module('myApp.filters', []).
                 // keys.mobile = undefined
                 // loop through products then set property of keys object to true and add string value
                 // to true and push to arr
-                angular.forEach(products, function (value, key) {
-                    var category = value[propertyName]; // for example : category = "eco" or "promo"
+                angular.forEach(products, function (product, key) {
+                    var category = product[propertyName].name; // for example : category = "eco" or "promo"
                     if(angular.isUndefined(keys[category])) { // if keys.eco is undefined
                         keys[category] = true; // then set it to true
                         results.push(category); // then push to results array

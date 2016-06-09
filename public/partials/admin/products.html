@@ -3,14 +3,15 @@
 
     <!-- drop down button -->
     <div class="btn-group" uib-dropdown>
-        <button id="split-button" type="button" class="btn btn-danger" ng-click="selectCategory()">{{ getCategory() | toUpperCaseFirstLetter }}</button>
+        <button id="split-button" type="button" class="btn btn-danger" ng-click="selectCategory()">{{ getCategory() }}</button>
         <button type="button" class="btn btn-danger" uib-dropdown-toggle>
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
             <li ng-repeat="product in products | unique:'category'">
-                <a ng-click="selectCategory(product)" href="">{{product | toUpperCaseFirstLetter}}</a>
+                <a ng-click="selectCategory(product)" ng-show="getCategory() !== product ? true : false">{{product}}</a>
             </li>
+            <li><a ng-click="selectCategory()" ng-show="getCategory() !== 'All' ? true : false">All</a></li>
         </ul>
     </div>
 
@@ -31,8 +32,7 @@
                 <td>{{product.framework}}</td>
                 <td>{{product.category.name}}</td>
                 <td>
-                    <a ui-sref="admin.editProduct({title: product.title})" class="btn btn-xs btn-warning">Edit</a>
-                    <a ui-sref="admin.product({title: product.title})" class="btn btn-xs btn-success">Detail</a>
+                    <a ui-sref="admin.product({title: product.title})" class="btn btn-xs btn-success">Edit</a>
                     <button type="button" class="btn btn-xs btn-danger" ng-click="delete(product._id, $index)">Delete</button>
                 </td>
             </tr>

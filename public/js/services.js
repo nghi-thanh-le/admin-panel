@@ -43,7 +43,7 @@ angular.module('myApp.services')
                         _id: product._id,
                         title: product.title,
                         framework: product.framework,
-                        category: product.category
+                        category: product.category.name
                     },
                     file: product.imgUrl
                 });

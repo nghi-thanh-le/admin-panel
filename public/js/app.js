@@ -18,7 +18,7 @@ angular.module('myApp', [
         requireBase: false
     });
 
-    //$urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/admin/products');
 
     $stateProvider
         .state('login', {
@@ -46,11 +46,6 @@ angular.module('myApp', [
         .state('admin.product', {
             url: '/product/:title',
             templateUrl: 'partials/admin/product.html',
-            controller: 'productController'
-        })
-        .state('admin.editProduct', {
-            url: '/editProduct/:title',
-            templateUrl: 'partials/admin/editProduct.html',
             controller: 'productController'
         })
         .state('admin.addProduct', {

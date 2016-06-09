@@ -31,7 +31,7 @@ angular.module('myApp.controllers')
             //         return false;
             //     }
             // }
-            return selectedCategory == null || product.category == selectedCategory;
+            return selectedCategory == null || product.category.name == selectedCategory;
         };
 
         $scope.delete = function (_id, index) {
@@ -51,6 +51,11 @@ angular.module('myApp.controllers')
         productsService.getProductByTitle($stateParams.title).then(function(res){
             $scope.product = res.data;
         });
+
+        $scope.showEditForm = false;
+        $scope.toggleForm = function () {
+            $scope.showEditForm = !$scope.showEditForm;
+        }
 
         $scope.editProduct = function (product) {
             productsService.editProduct(product).then(function () {
