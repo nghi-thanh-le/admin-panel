@@ -45,13 +45,11 @@ angular.module('myApp.controllers')
         $scope.categoryList = null;
         productsService.getCategoryList().then(function(res){
             $scope.categoryList = res.data;
-            console.log($scope.categoryList);
         });
 
         $scope.product = null;
         productsService.getProductByTitle($stateParams.title).then(function(res){
             $scope.product = res.data;
-            console.log($scope.product);
         });
 
         $scope.editProduct = function (product) {
