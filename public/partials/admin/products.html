@@ -1,0 +1,44 @@
+<div class="container" style="width: 100%">
+    <h1 class="page-header">Products</h1>
+
+    <!-- drop down button -->
+    <div class="btn-group" uib-dropdown>
+        <button id="split-button" type="button" class="btn btn-danger" ng-click="selectCategory()">{{ getCategory() | toUpperCaseFirstLetter }}</button>
+        <button type="button" class="btn btn-danger" uib-dropdown-toggle>
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+            <li ng-repeat="product in products | unique:'category'">
+                <a ng-click="selectCategory(product)" href="">{{product | toUpperCaseFirstLetter}}</a>
+            </li>
+        </ul>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Framework</th>
+                <th>Category</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="product in products | filter:categoryFilter">
+                <td>{{1 + $index}}</td>
+                <td>{{product.title}}</td>
+                <td>{{product.framework}}</td>
+                <td>{{product.category.name}}</td>
+                <td>
+                    <a ui-sref="admin.editProduct({title: product.title})" class="btn btn-xs btn-warning">Edit</a>
+                    <a ui-sref="admin.product({title: product.title})" class="btn btn-xs btn-success">Detail</a>
+                    <button type="button" class="btn btn-xs btn-danger" ng-click="delete(product._id, $index)">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <a ui-sref="admin.addProduct" class="btn btn-primary pull-right">Add</a>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,129 @@
+[{
+    "_id": "57581435b561f20c026509a7",
+    "framework": "express",
+    "category": {
+        "_id": 1,
+        "name": "Promo"
+    },
+    "title": "example-0",
+    "buyDomainUrl": {
+        "withoutDomainUrl": "withoutDomainUrl",
+        "withDomainUrl": "withDomainUrl"
+    },
+    "popularity": 5,
+    "dateAdded": "2016-06-08T12:48:53.499Z",
+    "previewUrl": "http://example.com/",
+    "imgUrl": "placeholder-0.png"
+}, {
+    "_id": "57581435b561f20c026509a9",
+    "framework": "angular",
+    "category": {
+        "_id": 1,
+        "name": "Promo"
+    },
+    "title": "example-1",
+    "buyDomainUrl": {
+        "withoutDomainUrl": "withoutDomainUrl",
+        "withDomainUrl": "withDomainUrl"
+    },
+    "popularity": 5,
+    "dateAdded": "2016-06-08T12:48:53.511Z",
+    "previewUrl": "http://example.com/",
+    "imgUrl": "placeholder-1.png"
+}, {
+    "_id": "57581435b561f20c026509a8",
+    "framework": "express",
+    "category": {
+        "_id": 2,
+        "name": "Eco"
+    },
+    "title": "example-2",
+    "buyDomainUrl": {
+        "withoutDomainUrl": "withoutDomainUrl",
+        "withDomainUrl": "withDomainUrl"
+    },
+    "popularity": 5,
+    "dateAdded": "2016-06-08T12:48:53.508Z",
+    "previewUrl": "http://example.com/",
+    "imgUrl": "placeholder-2.png"
+}, {
+    "_id": "57581435b561f20c026509aa",
+    "framework": "wordpress",
+    "category": {
+        "_id": 2,
+        "name": "Eco"
+    },
+    "title": "example-3",
+    "buyDomainUrl": {
+        "withoutDomainUrl": "withoutDomainUrl",
+        "withDomainUrl": "withDomainUrl"
+    },
+    "popularity": 5,
+    "dateAdded": "2016-06-08T12:48:53.512Z",
+    "previewUrl": "http://example.com/",
+    "imgUrl": "placeholder-3.png"
+}, {
+    "_id": "57581435b561f20c026509ab",
+    "framework": "angular",
+    "category": {
+        "_id": 1,
+        "name": "Promo"
+    },
+    "title": "example-4",
+    "buyDomainUrl": {
+        "withoutDomainUrl": "withoutDomainUrl",
+        "withDomainUrl": "withDomainUrl"
+    },
+    "popularity": 5,
+    "dateAdded": "2016-06-08T12:48:53.513Z",
+    "previewUrl": "http://example.com/",
+    "imgUrl": "placeholder-4.png"
+}, {
+    "_id": "57581435b561f20c026509ac",
+    "framework": "ios",
+    "category": {
+        "_id": 3,
+        "name": "Mobile"
+    },
+    "title": "example-5",
+    "buyDomainUrl": {
+        "withoutDomainUrl": "withoutDomainUrl",
+        "withDomainUrl": "withDomainUrl"
+    },
+    "popularity": 5,
+    "dateAdded": "2016-06-08T12:48:53.514Z",
+    "previewUrl": "http://example.com/",
+    "imgUrl": "placeholder-5.png"
+}, {
+    "_id": "57581435b561f20c026509ad",
+    "framework": "android",
+    "category": {
+        "_id": 3,
+        "name": "Mobile"
+    },
+    "title": "example-6",
+    "buyDomainUrl": {
+        "withoutDomainUrl": "withoutDomainUrl",
+        "withDomainUrl": "withDomainUrl"
+    },
+    "popularity": 5,
+    "dateAdded": "2016-06-08T12:48:53.516Z",
+    "previewUrl": "http://example.com/",
+    "imgUrl": "placeholder-6.png"
+}, {
+    "_id": "57581435b561f20c026509ae",
+    "framework": "html",
+    "category": {
+        "_id": 1,
+        "name": "Promo"
+    },
+    "title": "example-7",
+    "buyDomainUrl": {
+        "withoutDomainUrl": "withoutDomainUrl",
+        "withDomainUrl": "withDomainUrl"
+    },
+    "popularity": 5,
+    "dateAdded": "2016-06-08T12:48:53.517Z",
+    "previewUrl": "http://example.com/",
+    "imgUrl": "placeholder-7.png"
+}]

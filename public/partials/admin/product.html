@@ -1,0 +1,36 @@
+<div class="container" style="width: 100%">
+    <div class="row">
+        <div class="col-md-4">
+            <table class="table">
+                <tr>
+                    <th>Title</th>
+                    <td>{{ product.title }}</td>
+                </tr>
+                <tr>
+                    <th>Category</th>
+                    <td>{{ product.category.name }}</td>
+                </tr>
+                <tr>
+                    <th>Framework</th>
+                    <td>{{ product.framework }}</td>
+                </tr>
+                <tr>
+                    <th>Popularity</th>
+                    <td>{{ product.popularity }}</td>
+                </tr>
+                <tr>
+                    <th>Date Added</th>
+                    <td>{{ product.dateAdded | date:'short' }}</td>
+                </tr>
+                <tr>
+                    <th>Preview</th>
+                    <td><a href="www.example.com">Preview</a></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <img ng-src="/img/{{product.imgUrl}}" class="img-responsive"/>
+        </div>
+    </div>
+
+</div>
