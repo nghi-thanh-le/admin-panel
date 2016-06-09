@@ -24,11 +24,7 @@ mongoose.connect('mongodb://wiredelta:Newpass1234%@ds038379.mlab.com:38379/wdc-a
     if (err) throw err;
     console.log('Mongoose database connected!!');
 }).then(function() {
-    mongoose.connection.db.dropCollection('categories', function(err) {
-        if (err) {
-            throw err;
-        }
-        console.log('Drop categories collection');
+    mongoose.connection.db.collection('categories', function (err, categories) {
         fs.readFile(categoriesPath, 'utf8', function(err, obj) {
             var promises = [];
             categoriesArrJson = JSON.parse(obj);
@@ -41,11 +37,10 @@ mongoose.connect('mongodb://wiredelta:Newpass1234%@ds038379.mlab.com:38379/wdc-a
                 promises.push(category.save());
             });
             Q.all(promises).then(value => {
-                mongoose.connection.db.dropCollection('products', function (err) {
+                mongoose.connection.db.collection('products', function (err) {
                     if(err) {
                         throw err;
                     }
-                    console.log('Drop products collection');
                     fs.readFile(productsPath, 'utf8', function(err, obj) {
                         var promises = [];
                         productsArrJson = JSON.parse(obj);

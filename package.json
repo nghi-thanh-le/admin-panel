@@ -1,21 +1,26 @@
 {
-  "name": "wdc-admin-panel",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install",
-    "start": "node ./bin/www"
-  },
-  "dependencies": {
-    "body-parser": "^1.13.3",
-    "bower": "^1.7.9",
-    "debug": "^2.2.0",
-    "express": "~4.13.1",
-    "firebase": "^3.0.4",
-    "firebase-tools": "^3.0.2",
-    "mongoose": "^4.4.20",
-    "morgan": "~1.6.1",
-    "multer": "^1.1.0",
-    "q": "^1.4.1"
-  }
+    "name": "wdc-admin-panel",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "postinstall": "./node_modules/bower/bin/bower install",
+        "start": "node ./bin/www"
+    },
+    "dependencies": {
+        "body-parser": "^1.13.3",
+        "bower": "^1.7.9",
+        "debug": "^2.2.0",
+        "express": "~4.13.1",
+        "firebase": "^3.0.4",
+        "firebase-tools": "^3.0.2",
+        "mongoose": "^4.4.20",
+        "morgan": "~1.6.1",
+        "multer": "^1.1.0",
+        "q": "^1.4.1"
+    },
+    "engines": {
+        "node": "~6.1.0",
+        "bower": "~1.7.9",
+        "npm": "~3.8.6"
+    }
 }
