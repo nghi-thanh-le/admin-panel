@@ -84,6 +84,10 @@ router.post('/addProduct', upload.single('file'), function(req, res) {
         title: req.body.title,
         category: req.body.category,
         framework: req.body.framework,
+        withDomainUrl: req.body.withDomainUrl,
+        withoutDomainUrl: req.body.withoutDomainUrl,
+        popularity: req.body.popularity,
+        previewUrl: req.body.previewUrl
     };
 
     var product = new Products();
@@ -94,6 +98,12 @@ router.post('/addProduct', upload.single('file'), function(req, res) {
     };
     product.framework = post.framework;
     product.imgUrl = req.file.originalname;
+    product.buyDomainUrl = {
+        withoutDomainUrl: post.withoutDomainUrl,
+        withDomainUrl: post.withDomainUrl
+    };
+    product.popularity = post.popularity;
+    product.previewUrl = post.previewUrl;
 
     product.handleImgUpload(req.file).then(function() {
         product.save(function(err, savedProduct) {
@@ -124,6 +134,14 @@ router.post('/editProduct', upload.single('file'), function(req, res) {
             name: req.body.category
         };
         product.framework = req.body.framework;
+        product.buyDomainUrl = {
+            withoutDomainUrl: req.body.withoutDomainUrl,
+            withDomainUrl: req.body.withDomainUrl
+        };
+        product.dateAdded = new Date(req.body.dateAdded);
+        product.popularity = req.body.popularity;
+        product.previewUrl = req.body.previewUrl;
+
 
         if (req.file) {
             // replace the old img file....

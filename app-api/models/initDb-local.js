@@ -16,7 +16,7 @@ var Products = MongooseModal.Products;
 var Categories = MongooseModal.Categories;
 var Q = require('q');
 
-var productsPath = path.join(__dirname, './products.json');
+var productsPath = path.join(__dirname, './products-local.json');
 var categoriesPath = path.join(__dirname, './categories.json');
 var productsArrJson, categoriesArrJson;
 
@@ -40,6 +40,7 @@ mongoose.connect('mongodb://localhost:27017/test', function(err) {
 
                 promises.push(category.save());
             });
+            console.log('Initialize categories collection');
             Q.all(promises).then(value => {
                 mongoose.connection.db.dropCollection('products', function (err) {
                     if(err) {
@@ -59,6 +60,12 @@ mongoose.connect('mongodb://localhost:27017/test', function(err) {
                             };
                             product.framework = value.framework;
                             product.imgUrl = value.imgUrl;
+                            product.popularity = value.popularity;
+                            product.previewUrl = value.previewUrl;
+                            product.buyDomainUrl = {
+                                withDomainUrl: value.buyDomainUrl.withDomainUrl,
+                                withoutDomainUrl: value.buyDomainUrl.withoutDomainUrl
+                            };
 
                             promises.push(product.save());
                         });

@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var index = require('./app-server/routes/index');
 var api = require('./app-api/routes/api');
 
-mongoose.connect('mongodb://wiredelta:Newpass1234%@ds038379.mlab.com:38379/wdc-admin-panel', function (err) {
+mongoose.connect('mongodb://localhost:27017/test', function (err) {
     if (err) throw err;
     console.log('Mongoose database connected!!');
 });

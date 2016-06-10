@@ -1,29 +1,51 @@
 <div class="container" style="width: 100%">
     <form class="form-horizontal" ng-submit="submitForm(product)" enctype="multipart/form-data">
         <div class="form-group">
-            <label class="control-label col-md-1">Title</label>
-            <div class="col-md-4">
+            <label class="control-label col-md-2">Title</label>
+            <div class="col-md-3">
                 <input type="text" ng-model="product.title" class="form-control" required>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-1">Framework</label>
-            <div class="col-md-4">
+            <label class="control-label col-md-2">Framework</label>
+            <div class="col-md-3">
                 <input type="text" ng-model="product.framework" class="form-control" required>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-1">Category</label>
-            <div class="col-md-4">
-                <select class="form-control" ng-model="product.category">
-                    <option ng-repeat="category in categoryList" ng-value="{{category.name}}">{{category.name}}</option>
-                </select>
+            <label class="control-label col-md-2">Category</label>
+            <div class="col-md-2">
+                <select class="form-control" ng-model="product.category" ng-options="category.name for category in categoryList"></select>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-1">Image</label>
-            <div class="col-md-4">
+            <label class="control-label col-md-2">With Domain Url</label>
+            <div class="col-md-6">
+                <input type="text" ng-model="product.withDomainUrl" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Without Domain Url</label>
+            <div class="col-md-6">
+                <input type="text" ng-model="product.withoutDomainUrl" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Image</label>
+            <div class="col-md-3">
                 <input type="file" ngf-select ngf-pattern="'image/*'" ng-model="product.imgUrl" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Preview Url</label>
+            <div class="col-md-6">
+                <input type="text" ng-model="product.previewUrl" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Popularity</label>
+            <div class="col-md-1">
+                <select class="form-control" ng-model="product.popularity" ng-options="popularity for popularity in popularities"></select>
             </div>
         </div>
         <div class="form-group">

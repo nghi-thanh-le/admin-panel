@@ -13,6 +13,7 @@ angular.module('myApp.services')
         admin: 1
     })
     .service('productsService', function ($http, Upload) {
+        var popularities = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         return {
             getProducts: function () {
                 return $http.get('/api/products');
@@ -23,6 +24,9 @@ angular.module('myApp.services')
             getProductByTitle: function (title) {
                 return $http.get('/api/product/' + title);
             },
+            getPopularities: function () {
+                return popularities;
+            },
             addProduct: function (product) {
                 return Upload.upload({
                     url: '/api/addProduct',
@@ -30,7 +34,11 @@ angular.module('myApp.services')
                     data: {
                         title: product.title,
                         framework: product.framework,
-                        category: product.category
+                        category: product.category.name,
+                        withDomainUrl: product.withDomainUrl,
+                        withoutDomainUrl: product.withoutDomainUrl,
+                        previewUrl: product.previewUrl,
+                        popularity: product.popularity
                     },
                     file: product.imgUrl
                 });
@@ -43,7 +51,12 @@ angular.module('myApp.services')
                         _id: product._id,
                         title: product.title,
                         framework: product.framework,
-                        category: product.category.name
+                        category: product.category.name,
+                        dateAdded: product.dateAdded.toISOString(),
+                        withDomainUrl: product.buyDomainUrl.withDomainUrl,
+                        withoutDomainUrl: product.buyDomainUrl.withoutDomainUrl,
+                        previewUrl: product.previewUrl,
+                        popularity: product.popularity
                     },
                     file: product.imgUrl
                 });

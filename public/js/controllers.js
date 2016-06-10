@@ -42,6 +42,8 @@ angular.module('myApp.controllers')
         };
     })
     .controller('productController', function ($scope, $state, $stateParams, productsService, toastr) {
+        $scope.popularities = productsService.getPopularities();
+        
         $scope.categoryList = null;
         productsService.getCategoryList().then(function(res){
             $scope.categoryList = res.data;
@@ -50,9 +52,12 @@ angular.module('myApp.controllers')
         $scope.product = null;
         productsService.getProductByTitle($stateParams.title).then(function(res){
             $scope.product = res.data;
+            $scope.formInput = angular.copy($scope.product);
+            $scope.formInput.dateAdded = new Date($scope.product.dateAdded);
         });
 
         $scope.showEditForm = false;
+
         $scope.toggleForm = function () {
             $scope.showEditForm = !$scope.showEditForm;
         }
@@ -70,7 +75,12 @@ angular.module('myApp.controllers')
             $scope.categoryList = res.data;
         });
 
-        $scope.product = {};
+        $scope.product = {
+            popularity: 0
+        };
+
+        $scope.popularities = productsService.getPopularities();
+
         $scope.submitForm = function (product) {
             productsService.addProduct(product).then(value => {
                 toastr.error('Added new product');
