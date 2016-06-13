@@ -43,7 +43,7 @@ angular.module('myApp.controllers')
     })
     .controller('productController', function ($scope, $state, $stateParams, productsService, toastr) {
         $scope.popularities = productsService.getPopularities();
-        
+
         $scope.categoryList = null;
         productsService.getCategoryList().then(function(res){
             $scope.categoryList = res.data;
@@ -88,13 +88,16 @@ angular.module('myApp.controllers')
             });
         }
     })
-    .controller('LoginController', function ($scope, $state, Auth) {
+    .controller('LoginController', function ($scope, $state, Auth, store) {
         $scope.credentials = {
             username: '',
             password: ''
         };
 
         $scope.login = function (credentials) {
-            Auth.login(credentials);
+            Auth.login(credentials).then(res => {
+                store.set('jwt', res.data);
+                $state.go('admin.products');
+            });
         };
     });

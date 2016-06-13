@@ -3,6 +3,7 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var cors = require('cors');
 var index = require('./app-server/routes/index');
 var api = require('./app-api/routes/api');
 
@@ -13,18 +14,13 @@ mongoose.connect('mongodb://localhost:27017/test', function (err) {
 
 var app = express();
 
-app.use(logger('dev'));
+app.use(logger('short'));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
-    next();
-});
 app.use('/api', api);
 app.use('/', index);
 
