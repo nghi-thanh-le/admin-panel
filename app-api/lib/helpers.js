@@ -2,7 +2,7 @@ var jwt = require('jsonwebtoken');
 var config = require('./config');
 var secretKey = config.secretKey;
 var Admin = require('../models/admin');
-
+var Q = require('q');
 var sendJsonResponse = function (res, status, message) {
     res.status(status).json(message);
 };
@@ -23,7 +23,19 @@ var _idForCategory = function(category) {
     return _id;
 };
 
+var imgName = function (mimeType, title) {
+    switch (mimeType) {
+        case 'image/jpeg':
+            return title + '.jpg';
+            break;
+        case 'image/png':
+            return title + '.png';
+            break;
+    }
+};
+
 module.exports = {
     sendJsonResponse: sendJsonResponse,
-    _idForCategory: _idForCategory
+    _idForCategory: _idForCategory,
+    imgName: imgName
 };

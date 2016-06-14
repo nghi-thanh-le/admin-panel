@@ -11,13 +11,13 @@ OR
 var path = require('path');
 var fs = require('fs');
 var mongoose = require('mongoose');
-var MongooseModal = require('./modal');
+var MongooseModal = require('../models/modal');
 var Products = MongooseModal.Products;
 var Categories = MongooseModal.Categories;
 var Q = require('q');
 
-var productsPath = path.join(__dirname, './products-local.json');
-var categoriesPath = path.join(__dirname, './categories.json');
+var productsPath = path.join(__dirname, '../models/products-local.json');
+var categoriesPath = path.join(__dirname, '../models/categories.json');
 var productsArrJson, categoriesArrJson;
 
 mongoose.connect('mongodb://localhost:27017/test', function(err) {

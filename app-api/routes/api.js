@@ -5,10 +5,8 @@ var Admin = require('../models/admin');
 var path = require('path');
 var app = express();
 var fs = require('fs');
-var multer = require('multer');
-var Q = require('q');
-var util = require('util');
 var jwt = require('jsonwebtoken');
+var multer = require('multer');
 var expressJwt = require('express-jwt');
 var helpers = require('../lib/helpers');
 
@@ -18,30 +16,45 @@ var Admin = require('../models/admin');
 
 var secretKey = require('../lib/config').secretKey;
 var pathForUploadPic = path.join(__dirname, '../../public/img');
+
+var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, pathForUploadPic);
+    },
+    filename: function(req, file, cb) {
+        cb(null, helpers.imgName(file.mimetype, req.body.title));
+    }
+});
+
 var upload = multer({
-    dest: pathForUploadPic
+    storage: storage
 });
 
 /* User Routes. */
-router.post('/product/*', expressJwt({secret: secretKey}), function (req, res, next) {
+router.post('/product/*', expressJwt({
+    secret: secretKey
+}), function(req, res, next) {
     Admin.findOne({
         username: req.user.username,
-        _id: req.user.id
-    }, function (err, admin) {
-        if(err) {
-            return helpers.sendJsonResponse(res, 200, err);
+        _id: req.user._id
+    }, function(err, admin) {
+        if (err) {
+            return helpers.sendJsonResponse(res, 400, err);
         }
         next();
     });
 });
 
+router.get('/protected', expressJwt({
+    secret: secretKey
+}), function(req, res, next) {
+    helpers.sendJsonResponse(res, 200, req.user);
+});
 
 router.get('/products', function(req, res) {
     Products.find({}, function(err, products) {
-        if (err) {
-            helpers.sendJsonResponse(res, 404, {
-                message: 'Products list not found'
-            });
+        if (err || !products) {
+            return helpers.sendJsonResponse(res, 400, err);
         }
         helpers.sendJsonResponse(res, 200, products);
     })
@@ -49,27 +62,28 @@ router.get('/products', function(req, res) {
 
 router.get('/product/:productTitle', function(req, res) {
     var productTitle = req.params.productTitle;
-    if (util.isNullOrUndefined(productTitle)) {
-        helpers.sendJsonResponse(res, 500, {
-            message: 'Empty produc title'
-        });
-    } else {
-        Products.findOne({
-            title: productTitle
-        }, function(err, product) {
-            if (err) {
-                helpers.sendJsonResponse(res, 404, {
-                    message: 'Product not found'
-                });
-            }
-            helpers.sendJsonResponse(res, 200, product);
+    if (!productTitle) {
+        return helpers.sendJsonResponse(res, 400, {
+            message: 'Empty product\'s title'
         });
     }
+    Products.findOne({
+        title: productTitle
+    }, function(err, product) {
+        if (err || !product) {
+            return helpers.sendJsonResponse(res, 404, {
+                message: 'Product not found'
+            });
+        }
+        helpers.sendJsonResponse(res, 200, product);
+    });
 });
 
 router.get('/categoryList', function(req, res) {
     Categories.find({}, function(err, category) {
-        if (err) throw err;
+        if (err) {
+            return helpers.sendJsonResponse(res, 400, err);
+        }
         helpers.sendJsonResponse(res, 200, category);
     });
 });
@@ -85,31 +99,29 @@ router.post('/product/add', upload.single('file'), function(req, res) {
         previewUrl: req.body.previewUrl
     };
 
-    var product = new Products();
-    product.title = post.title;
-    product.category = {
-        _id: helpers._idForCategory(post.category),
-        name: post.category
-    };
-    product.framework = post.framework;
-    product.imgUrl = req.file.originalname;
-    product.buyDomainUrl = {
-        withoutDomainUrl: post.withoutDomainUrl,
-        withDomainUrl: post.withDomainUrl
-    };
-    product.popularity = post.popularity;
-    product.previewUrl = post.previewUrl;
-
-    product.handleImgUpload(req.file).then(function() {
-        product.save(function(err, savedProduct) {
-            if (err) {
-                helpers.sendJsonResponse(res, 401, err);
-            }
-            delete req.file;
-            helpers.sendJsonResponse(res, 200, savedProduct);
-        }, function(err) {
-            helpers.sendJsonResponse(res, 500, err);
-        });
+    var product = new Products({
+        title: post.title,
+        category: {
+            _id: helpers._idForCategory(post.category),
+            name: post.category
+        },
+        framework: post.framework,
+        imgUrl: helpers.imgName(req.file.mimetype, post.title),
+        buyDomainUrl: {
+            withoutDomainUrl: post.withoutDomainUrl,
+            withDomainUrl: post.withDomainUrl
+        },
+        popularity: post.popularity,
+        previewUrl: post.previewUrl
+    });
+    product.save(function(err, savedProduct) {
+        if (err) {
+            helpers.sendJsonResponse(res, 401, err);
+        }
+        delete req.file;
+        helpers.sendJsonResponse(res, 200, savedProduct);
+    }, function(err) {
+        helpers.sendJsonResponse(res, 500, err);
     });
 });
 
@@ -118,7 +130,7 @@ router.post('/product/edit', upload.single('file'), function(req, res) {
         _id: req.body._id
     }, function(err, product) {
         if (err || !product) {
-            helpers.sendJsonResponse(res, 500, {
+            helpers.sendJsonResponse(res, 404, {
                 message: 'Product not found'
             });
         }
@@ -137,36 +149,41 @@ router.post('/product/edit', upload.single('file'), function(req, res) {
         product.popularity = req.body.popularity;
         product.previewUrl = req.body.previewUrl;
 
-
         if (req.file) {
             // replace the old img file....
             fs.unlink(path.join(pathForUploadPic, product.imgUrl), function(err) {
                 if (err) {
                     throw err;
                 }
-            });
-            product.handleImgUpload(req.file).then(function(imgName) {
-                product.imgUrl = req.file.originalname;
+                product.imgUrl = helpers.imgName(req.file.mimetype, req.body.title);
                 delete req.file;
                 product.save(function(err) {
                     if (err) {
-                        throw err;
+                        return helpers.sendJsonResponse(res, 400, err);
                     }
                     helpers.sendJsonResponse(res, 200, product);
                 });
             });
         } else {
-            product.save(function(err) {
+            var oldImgUrl = product.imgUrl;
+            var newImgUrl = product.title + product.imgUrl.slice(product.imgUrl.indexOf('.'));
+            fs.rename(path.join(pathForUploadPic, oldImgUrl), path.join(pathForUploadPic, newImgUrl), function(err) {
                 if (err) {
-                    throw err;
+                    return helpers.sendJsonResponse(res, 400, err);
                 }
-                helpers.sendJsonResponse(res, 200, product);
+                product.imgUrl = newImgUrl;
+                product.save(function(err) {
+                    if (err) {
+                        return helpers.sendJsonResponse(res, 400, err);
+                    }
+                    helpers.sendJsonResponse(res, 200, product);
+                });
             });
         }
     });
 });
 
-router.post('/product/testing', function (req, res) {
+router.post('/product/testing', function(req, res) {
     helpers.sendJsonResponse(res, 200, 'you got hereeeeeee!!!!!');
 });
 
@@ -245,7 +262,7 @@ router.post('/login', function(req, res) {
                     _id: admin._id,
                     username: admin.username
                 }, secretKey, {
-                    expiresIn: 60 * 5
+                    expiresIn: 60 * 10
                 });
                 helpers.sendJsonResponse(res, 200, token);
             }
