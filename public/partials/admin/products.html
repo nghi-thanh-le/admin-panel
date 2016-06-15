@@ -3,15 +3,15 @@
 
     <!-- drop down button -->
     <div class="btn-group" uib-dropdown>
-        <button id="split-button" type="button" class="btn btn-danger" ng-click="selectCategory()">{{ getCategory() }}</button>
+        <button id="split-button" type="button" class="btn btn-danger">{{ getCategory() }}</button>
         <button type="button" class="btn btn-danger" uib-dropdown-toggle>
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
             <li ng-repeat="product in products | unique:'category'">
-                <a ng-click="selectCategory(product)" ng-show="getCategory() !== product ? true : false">{{product}}</a>
+                <a ng-click="selectCategory(product)" ng-show="getCategory() !== product ? true : false" href="">{{product}}</a>
             </li>
-            <li><a ng-click="selectCategory()" ng-show="getCategory() !== 'All' ? true : false">All</a></li>
+            <li><a ng-click="selectCategory()" ng-show="getCategory() !== 'All' ? true : false" href="">All</a></li>
         </ul>
     </div>
 
@@ -26,7 +26,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="product in products | filter:categoryFilter">
+            <tr ng-repeat="product in products | filter:categoryFilter | orderBy: 'title'">
                 <td>{{1 + $index}}</td>
                 <td>{{product.title}}</td>
                 <td>{{product.framework}}</td>

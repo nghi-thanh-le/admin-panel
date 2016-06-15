@@ -1,28 +1,20 @@
 {
-  "name": "wdc-admin-panel",
+  "name": "admin-panel",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install",
     "start": "node ./bin/www"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.13.3",
-    "bower": "^1.7.9",
     "cors": "^2.7.1",
     "debug": "^2.2.0",
     "express": "~4.13.1",
-    "express-jwt": "^3.4.0",
     "jsonwebtoken": "^7.0.0",
     "mongoose": "^4.4.20",
     "morgan": "~1.6.1",
     "multer": "^1.1.0",
     "q": "^1.4.1"
-  },
-  "engines": {
-    "node": "~6.1.0",
-    "bower": "~1.7.9",
-    "npm": "~3.8.6"
   }
 }

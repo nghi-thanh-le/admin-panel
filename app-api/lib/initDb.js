@@ -11,77 +11,64 @@ OR
 var path = require('path');
 var fs = require('fs');
 var mongoose = require('mongoose');
-var MongooseModal = require('./modal');
-var Products = MongooseModal.Products;
-var Categories = MongooseModal.Categories;
+var Products = require('../models/products');
+var Admin = require('../models/admin');
 var Q = require('q');
 
-var productsPath = path.join(__dirname, './products.json');
-var categoriesPath = path.join(__dirname, './categories.json');
-var productsArrJson, categoriesArrJson;
+var productsPath = path.join(__dirname, '../models/products.json');
+var productsArrJson;
 
-mongoose.connect('mongodb://wiredelta:Newpass1234%@ds038379.mlab.com:38379/wdc-admin-panel', function(err) {
+mongoose.connect('mongodb://localhost:27017/admin-panel-github', function(err) {
     if (err) throw err;
     console.log('Mongoose database connected!!');
 }).then(function() {
-    mongoose.connection.db.dropCollection('categories', function(err) {
+    var admin = new Admin();
+    admin.hashedPassword('admin', function(err, hashedPassword) {
         if (err) {
             throw err;
         }
-        console.log('Drop categories collection');
-        fs.readFile(categoriesPath, 'utf8', function(err, obj) {
-            var promises = [];
-            categoriesArrJson = JSON.parse(obj);
-            categoriesArrJson.forEach(function(value) {
-                var category = new Categories();
+        admin.username = 'admin';
+        admin.password = hashedPassword;
+        admin.save(function(err) {
+            if (err) {
+                throw err;
+            }
+            console.log("Admin initialized");
 
-                category._id = value._id;
-                category.name = value.name;
+            fs.readFile(productsPath, 'utf8', function(err, obj) {
+                var promises = [];
+                productsArrJson = JSON.parse(obj);
+                productsArrJson.forEach(function(value) {
+                    var product = new Products();
 
-                promises.push(category.save());
-            });
-            Q.all(promises).then(value => {
-                mongoose.connection.db.dropCollection('products', function (err) {
-                    if(err) {
-                        throw err;
-                    }
-                    console.log('Drop products collection');
-                    fs.readFile(productsPath, 'utf8', function(err, obj) {
-                        var promises = [];
-                        productsArrJson = JSON.parse(obj);
-                        productsArrJson.forEach(function(value) {
-                            var product = new Products();
+                    product.title = value.title;
+                    product.category = {
+                        _id: value.category._id,
+                        name: value.category.name
+                    };
+                    product.framework = value.framework;
+                    product.imgUrl = value.imgUrl;
+                    product.popularity = value.popularity;
+                    product.previewUrl = value.previewUrl;
+                    product.buyDomainUrl = {
+                        withDomainUrl: value.buyDomainUrl.withDomainUrl,
+                        withoutDomainUrl: value.buyDomainUrl.withoutDomainUrl
+                    };
 
-                            product.title = value.title;
-                            product.category = {
-                                _id: value.category._id,
-                                name: value.category.name
-                            };
-                            product.framework = value.framework;
-                            product.imgUrl = value.imgUrl;
+                    promises.push(product.save());
+                });
+                Q.all(promises).then(value => {
+                    console.log("Initialize products collection");
+                    mongoose.connection.close(function(err) {
+                        if (err) {
+                            throw err;
+                        }
 
-                            promises.push(product.save());
-                        });
-                        Q.all(promises).then(value => {
-                            console.log("Initialize products collection");
-                            mongoose.connection.close(function(err) {
-                                if (err) {
-                                    throw err;
-                                }
-
-                                console.log("Collections inserted and close db connection");
-
-                                process.exit(0);
-                            });
-                        }).catch(err => {
-                            console.log(err);
-                            res.status(500).send(err);
-                        });
+                        console.log("Collections inserted and close db connection");
                     });
-                })
-            }).catch(err => {
-                console.log(err);
-                res.status(500).send(err);
+                }).catch(err => {
+                    throw err;
+                });
             });
         });
     });

@@ -5,7 +5,7 @@
 angular.module('myApp.controllers', []);
 
 angular.module('myApp.controllers')
-    .controller('productsController', function ($scope, $state, productsService, toastr) {
+    .controller('productsController', function ($scope, $state, $window, productsService, toastr) {
         var selectedCategory = null; // null at default but will be string later
 
         $scope.products = null;
@@ -36,8 +36,7 @@ angular.module('myApp.controllers')
 
         $scope.delete = function (_id, index) {
             productsService.deleteProductById(_id).then(value => {
-                toastr.success('Product deleted!!!!');
-                $scope.products.splice(index, 1);
+                $window.location.reload();
             });
         };
     })
@@ -63,10 +62,21 @@ angular.module('myApp.controllers')
         }
 
         $scope.editProduct = function (product) {
-            productsService.editProduct(product).then(function () {
-                toastr.info('Product edited');
-                $state.go('admin.products');
-            });
+            if(angular.isObject(product.imgUrl)) {
+                productsService.editProduct(product).then(function (res) {
+                    toastr.info('Product edited');
+                    $state.go('admin.products');
+                }, function (err) {
+                    console.log('err::::::::', err);
+                });
+            } else if(angular.isString(product.imgUrl)) {
+                productsService.editProductV2(product).then(function (res) {
+                    toastr.info('Product edited');
+                    $state.go('admin.products');
+                }, function (err) {
+                    toastr.err(err);
+                })
+            }
         }
     })
     .controller('addProductController', function ($scope, $state, productsService, toastr) {
@@ -88,7 +98,7 @@ angular.module('myApp.controllers')
             });
         }
     })
-    .controller('LoginController', function ($scope, $state, Auth, store) {
+    .controller('LoginController', function ($scope, $state, Auth, $window) {
         $scope.credentials = {
             username: '',
             password: ''
@@ -96,7 +106,7 @@ angular.module('myApp.controllers')
 
         $scope.login = function (credentials) {
             Auth.login(credentials).then(res => {
-                store.set('jwt', res.data);
+                $window.localStorage.setItem('jwt', res.data);
                 $state.go('admin.products');
             });
         };

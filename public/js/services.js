@@ -14,21 +14,18 @@ angular.module('myApp.services')
             getProducts: function() {
                 return $http({
                     url: '/api/products',
-                    skipAuthorization: true,
                     method: 'GET'
                 });
             },
             getCategoryList: function() {
                 return $http({
-                    url: '/api/categoryList',
-                    skipAuthorization: true,
+                    url: '/api/categories',
                     method: 'GET'
                 });
             },
             getProductByTitle: function(title) {
                 return $http({
                     url: '/api/product/' + title,
-                    skipAuthorization: true,
                     method: 'GET'
                 });
             },
@@ -69,6 +66,19 @@ angular.module('myApp.services')
                     }
                 });
             },
+            editProductV2: function (product) {
+                return $http.post('/api/product/editV2', {
+                    _id: product._id,
+                    title: product.title,
+                    framework: product.framework,
+                    category: product.category.name,
+                    dateAdded: product.dateAdded.toISOString(),
+                    withDomainUrl: product.buyDomainUrl.withDomainUrl,
+                    withoutDomainUrl: product.buyDomainUrl.withoutDomainUrl,
+                    previewUrl: product.previewUrl,
+                    popularity: product.popularity
+                });
+            },
             deleteProductById: function(id) {
                 return $http.post('/api/product/delete',{
                     _id: id
@@ -76,12 +86,12 @@ angular.module('myApp.services')
             }
         };
     })
-    .service('Auth', function($http, store) {
+    .service('Auth', function($http, $window) {
         this.login = function (credentials) {
             return $http.post('api/login', credentials);
         };
 
         this.logout = function () {
-            store.remove('jwt');
+            $window.localStorage.removeItem('jwt');
         };
     });

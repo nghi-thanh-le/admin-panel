@@ -1,5 +1,4 @@
 [{
-    "_id": "57581435b561f20c026509a7",
     "framework": "express",
     "category": {
         "_id": 1,
@@ -7,15 +6,13 @@
     },
     "title": "example-0",
     "buyDomainUrl": {
-        "withoutDomainUrl": "shop.wiredelta.com/store/cart.php?a=add&pid=1",
-        "withDomainUrl": "shop.wiredelta.com/store/cart.php?a=add&pid=2"
+        "withoutDomainUrl": "shop.example.com/store/cart.php?a=add&pid=1",
+        "withDomainUrl": "shop.example.com/store/cart.php?a=add&pid=2"
     },
-    "popularity": 5,
-    "dateAdded": "2016-06-08T12:48:53.499Z",
-    "previewUrl": "shop.wiredelta.com/themes/example-0",
-    "imgUrl": "placeholder-0.png"
+    "popularity": 0,
+    "previewUrl": "shop.example.com/themes/example-0",
+    "imgUrl": "example-0.png"
 }, {
-    "_id": "57581435b561f20c026509a9",
     "framework": "angular",
     "category": {
         "_id": 1,
@@ -23,15 +20,13 @@
     },
     "title": "example-1",
     "buyDomainUrl": {
-        "withoutDomainUrl": "shop.wiredelta.com/store/cart.php?a=add&pid=1",
-        "withDomainUrl": "shop.wiredelta.com/store/cart.php?a=add&pid=2"
+        "withoutDomainUrl": "shop.example.com/store/cart.php?a=add&pid=1",
+        "withDomainUrl": "shop.example.com/store/cart.php?a=add&pid=2"
     },
-    "popularity": 5,
-    "dateAdded": "2016-06-08T12:48:53.511Z",
-    "previewUrl": "shop.wiredelta.com/themes/example-1",
-    "imgUrl": "placeholder-1.png"
+    "popularity": 0,
+    "previewUrl": "shop.example.com/themes/example-1",
+    "imgUrl": "example-1.png"
 }, {
-    "_id": "57581435b561f20c026509a8",
     "framework": "express",
     "category": {
         "_id": 2,
@@ -39,15 +34,13 @@
     },
     "title": "example-2",
     "buyDomainUrl": {
-        "withoutDomainUrl": "shop.wiredelta.com/store/cart.php?a=add&pid=1",
-        "withDomainUrl": "shop.wiredelta.com/store/cart.php?a=add&pid=2"
+        "withoutDomainUrl": "shop.example.com/store/cart.php?a=add&pid=1",
+        "withDomainUrl": "shop.example.com/store/cart.php?a=add&pid=2"
     },
-    "popularity": 5,
-    "dateAdded": "2016-06-08T12:48:53.508Z",
-    "previewUrl": "shop.wiredelta.com/themes/example-2",
-    "imgUrl": "placeholder-2.png"
+    "popularity": 0,
+    "previewUrl": "shop.example.com/themes/example-2",
+    "imgUrl": "example-2.png"
 }, {
-    "_id": "57581435b561f20c026509aa",
     "framework": "wordpress",
     "category": {
         "_id": 2,
@@ -55,15 +48,13 @@
     },
     "title": "example-3",
     "buyDomainUrl": {
-        "withoutDomainUrl": "shop.wiredelta.com/store/cart.php?a=add&pid=1",
-        "withDomainUrl": "shop.wiredelta.com/store/cart.php?a=add&pid=2"
+        "withoutDomainUrl": "shop.example.com/store/cart.php?a=add&pid=1",
+        "withDomainUrl": "shop.example.com/store/cart.php?a=add&pid=2"
     },
-    "popularity": 5,
-    "dateAdded": "2016-06-08T12:48:53.512Z",
-    "previewUrl": "shop.wiredelta.com/themes/example-3",
-    "imgUrl": "placeholder-3.png"
+    "popularity": 0,
+    "previewUrl": "shop.example.com/themes/example-3",
+    "imgUrl": "example-3.png"
 }, {
-    "_id": "57581435b561f20c026509ab",
     "framework": "angular",
     "category": {
         "_id": 1,
@@ -71,15 +62,13 @@
     },
     "title": "example-4",
     "buyDomainUrl": {
-        "withoutDomainUrl": "shop.wiredelta.com/store/cart.php?a=add&pid=1",
-        "withDomainUrl": "shop.wiredelta.com/store/cart.php?a=add&pid=2"
+        "withoutDomainUrl": "shop.example.com/store/cart.php?a=add&pid=1",
+        "withDomainUrl": "shop.example.com/store/cart.php?a=add&pid=2"
     },
-    "popularity": 5,
-    "dateAdded": "2016-06-08T12:48:53.513Z",
-    "previewUrl": "shop.wiredelta.com/themes/example-4",
-    "imgUrl": "placeholder-4.png"
+    "popularity": 0,
+    "previewUrl": "shop.example.com/themes/example-4",
+    "imgUrl": "example-4.png"
 }, {
-    "_id": "57581435b561f20c026509ac",
     "framework": "ios",
     "category": {
         "_id": 3,
@@ -87,15 +76,13 @@
     },
     "title": "example-5",
     "buyDomainUrl": {
-        "withoutDomainUrl": "shop.wiredelta.com/store/cart.php?a=add&pid=1",
-        "withDomainUrl": "shop.wiredelta.com/store/cart.php?a=add&pid=2"
+        "withoutDomainUrl": "shop.example.com/store/cart.php?a=add&pid=1",
+        "withDomainUrl": "shop.example.com/store/cart.php?a=add&pid=2"
     },
-    "popularity": 5,
-    "dateAdded": "2016-06-08T12:48:53.514Z",
-    "previewUrl": "shop.wiredelta.com/themes/example-5",
-    "imgUrl": "placeholder-5.png"
+    "popularity": 0,
+    "previewUrl": "shop.example.com/themes/example-5",
+    "imgUrl": "example-5.png"
 }, {
-    "_id": "57581435b561f20c026509ad",
     "framework": "android",
     "category": {
         "_id": 3,
@@ -103,15 +90,13 @@
     },
     "title": "example-6",
     "buyDomainUrl": {
-        "withoutDomainUrl": "shop.wiredelta.com/store/cart.php?a=add&pid=1",
-        "withDomainUrl": "shop.wiredelta.com/store/cart.php?a=add&pid=2"
+        "withoutDomainUrl": "shop.example.com/store/cart.php?a=add&pid=1",
+        "withDomainUrl": "shop.example.com/store/cart.php?a=add&pid=2"
     },
-    "popularity": 5,
-    "dateAdded": "2016-06-08T12:48:53.516Z",
-    "previewUrl": "shop.wiredelta.com/themes/example-6",
-    "imgUrl": "placeholder-6.png"
+    "popularity": 0,
+    "previewUrl": "shop.example.com/themes/example-6",
+    "imgUrl": "example-6.png"
 }, {
-    "_id": "57581435b561f20c026509ae",
     "framework": "html",
     "category": {
         "_id": 1,
@@ -119,11 +104,10 @@
     },
     "title": "example-7",
     "buyDomainUrl": {
-        "withoutDomainUrl": "shop.wiredelta.com/store/cart.php?a=add&pid=1",
-        "withDomainUrl": "shop.wiredelta.com/store/cart.php?a=add&pid=2"
+        "withoutDomainUrl": "shop.example.com/store/cart.php?a=add&pid=1",
+        "withDomainUrl": "shop.example.com/store/cart.php?a=add&pid=2"
     },
-    "popularity": 5,
-    "dateAdded": "2016-06-08T12:48:53.517Z",
-    "previewUrl": "shop.wiredelta.com/themes/example-7",
-    "imgUrl": "placeholder-7.png"
+    "popularity": 0,
+    "previewUrl": "shop.example.com/themes/example-7",
+    "imgUrl": "example-7.png"
 }]

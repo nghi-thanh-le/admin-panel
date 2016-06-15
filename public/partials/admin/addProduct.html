@@ -1,55 +1,65 @@
 <div class="container" style="width: 100%">
+    <div class="alert alert-dismissible alert-info" style="width: 600px;">
+        <p>Image must have Min/Max Width: 1349px; Min Height: 900px; Max Height: 6000px</p>
+    </div>
     <form class="form-horizontal" ng-submit="submitForm(product)" enctype="multipart/form-data">
         <div class="form-group">
-            <label class="control-label col-md-2">Title</label>
+            <label class="col-lg-2 control-label">Title</label>
             <div class="col-md-3">
                 <input type="text" ng-model="product.title" class="form-control" required>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2">Framework</label>
+            <label class="col-lg-2 control-label">Framework</label>
             <div class="col-md-3">
                 <input type="text" ng-model="product.framework" class="form-control" required>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2">Category</label>
+            <label class="col-lg-2 control-label">Category</label>
             <div class="col-md-2">
                 <select class="form-control" ng-model="product.category" ng-options="category.name for category in categoryList"></select>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2">With Domain Url</label>
+            <label class="col-lg-2 control-label">With Domain Url</label>
             <div class="col-md-6">
                 <input type="text" ng-model="product.withDomainUrl" class="form-control" required>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2">Without Domain Url</label>
+            <label class="col-lg-2 control-label">Without Domain Url</label>
             <div class="col-md-6">
                 <input type="text" ng-model="product.withoutDomainUrl" class="form-control" required>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2">Image</label>
+            <label class="col-lg-2 control-label">Image</label>
             <div class="col-md-3">
-                <input type="file" ngf-select ngf-pattern="'image/*'" ng-model="product.imgUrl" class="form-control" required>
+                <!-- <input type="file" ngf-select ngf-pattern="'image/*'" ng-model="product.imgUrl"
+                class="form-control" ngf-accept="'image/*'" required
+                ngf-min-height="900" ngf-max-height="6000"
+                ngf-min-width="1349" ngf-max-width="1349"> -->
+                <input type="file" ngf-select ngf-pattern="'image/*'" ng-model="product.imgUrl" class="form-control" ngf-accept="'image/*'" required>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2">Preview Url</label>
+            <label class="col-lg-2 control-label">Preview Url</label>
             <div class="col-md-6">
                 <input type="text" ng-model="product.previewUrl" class="form-control" required>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2">Popularity</label>
+            <label class="col-lg-2 control-label">Popularity</label>
             <div class="col-md-1">
                 <select class="form-control" ng-model="product.popularity" ng-options="popularity for popularity in popularities"></select>
             </div>
         </div>
         <div class="form-group">
-            <input type="submit" class="btn btn-success col-md-offset-1" value="Add">
+            <div class="col-lg-10 col-lg-offset-2">
+                <button type="reset" class="btn btn-default">Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </div>
     </form>
 </div>

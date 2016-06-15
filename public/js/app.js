@@ -5,14 +5,13 @@ angular.module('myApp', [
         'ngAnimate',
         'ngSanitize',
         'angular-jwt',
-        'angular-storage',
         'ngFileUpload',
         'toastr',
         'ui.bootstrap',
         'myApp.controllers',
         'myApp.services',
         'myApp.filters'
-    ]).config(function($stateProvider, $urlRouterProvider, $locationProvider, jwtInterceptorProvider, $httpProvider) {
+    ]).config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, jwtInterceptorProvider) {
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: false
@@ -20,9 +19,14 @@ angular.module('myApp', [
 
         $urlRouterProvider.otherwise('/login');
 
-        jwtInterceptorProvider.tokenGetter = function(config, store, jwtHelper) {
+        jwtInterceptorProvider.tokenGetter = function($window, $state, jwtHelper) {
             // it will send Authorization: Bearer {jwt}
-            return store.get('jwt');
+            if (window.localStorage.getItem('jwt') && jwtHelper.isTokenExpired(window.localStorage.getItem('jwt'))) {
+                window.localStorage.removeItem('jwt');
+                $state.go('login');
+            } else {
+                return $window.localStorage.getItem('jwt');
+            }
         }
 
         $httpProvider.interceptors.push('jwtInterceptor');
@@ -39,6 +43,12 @@ angular.module('myApp', [
                 templateUrl: 'partials/admin/admin.html',
                 data: {
                     requiresLogin: true
+                },
+                controller: function ($scope, $state, $window) {
+                    $scope.logout = function () {
+                        $window.localStorage.removeItem('jwt');
+                        $state.go('login');
+                    }
                 }
             })
             .state('admin.products', {
@@ -57,11 +67,15 @@ angular.module('myApp', [
                 controller: 'addProductController'
             });
     })
-    .run(function($rootScope, $state, store, jwtHelper) {
+    .run(function($rootScope, $state, $window, jwtHelper) {
+        var localStorage = $window.localStorage;
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
             if (toState.data && toState.data.requiresLogin) {
-                if (!store.get('jwt') || jwtHelper.isTokenExpired(store.get('jwt'))) {
+                if (!localStorage.getItem('jwt') || jwtHelper.isTokenExpired(localStorage.getItem('jwt')) || !jwtHelper.decodeToken(localStorage.getItem('jwt'))) {
                     event.preventDefault();
+                    if(localStorage.getItem('jwt')) {
+                        localStorage.removeItem('jwt');
+                    }
                     $state.go('login');
                 }
             }

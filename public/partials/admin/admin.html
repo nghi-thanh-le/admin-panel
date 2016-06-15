@@ -1,26 +1,30 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" ui-sref="admin.products">Admin panel</a>
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" ui-sref="admin.products">Admin panel</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="">Hello Admin</a></li>
+            <li><a ng-click="logout()" href="">Logout</a></li>
+        </ul>
     </div>
-    <form class="navbar-form navbar-right">
-        <input type="text" class="form-control" placeholder="Not yet implemented">
-    </form>
-  </div>
 </nav>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-            <a href="#">Placeholder for feartures admin can use</a>
+            <ul class="nav nav-sidebar">
+                <li ui-sref-active="active" class="active">
+                    <a ui-sref="admin.products">Products</a>
+                </li>
+            </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ui-view></div>
-        <a ui-sref="admin.products" class="btn btn-warning btn-xs pull-right">Get back to products</a>
     </div>
 </div>
