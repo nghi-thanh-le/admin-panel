@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "postinstall": "node ./app-api/lib/initDbAdmin.js",
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -12,6 +13,7 @@
     "debug": "^2.2.0",
     "express": "~4.13.1",
     "jsonwebtoken": "^7.0.0",
+    "lodash": "^4.13.1",
     "mongoose": "^4.4.20",
     "morgan": "~1.6.1",
     "multer": "^1.1.0",

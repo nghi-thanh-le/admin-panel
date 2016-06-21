@@ -1,12 +1,5 @@
 'use strict';
 
-/* Services */
-
-
-// Demonstrate how to register services
-// In this case it is a simple value service.
-angular.module('myApp.services', []);
-
 angular.module('myApp.services')
     .service('productsService', function($http, Upload) {
         var popularities = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -50,7 +43,7 @@ angular.module('myApp.services')
             },
             editProduct: function(product) {
                 return Upload.upload({
-                    url: '/api/product/edit',
+                    url: '/api/product/editWithObject',
                     method: 'POST',
                     data: {
                         _id: product._id,
@@ -67,7 +60,7 @@ angular.module('myApp.services')
                 });
             },
             editProductV2: function (product) {
-                return $http.post('/api/product/editV2', {
+                return $http.post('/api/product/editWithString', {
                     _id: product._id,
                     title: product.title,
                     framework: product.framework,
@@ -84,14 +77,5 @@ angular.module('myApp.services')
                     _id: id
                 });
             }
-        };
-    })
-    .service('Auth', function($http, $window) {
-        this.login = function (credentials) {
-            return $http.post('api/login', credentials);
-        };
-
-        this.logout = function () {
-            $window.localStorage.removeItem('jwt');
         };
     });

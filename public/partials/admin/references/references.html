@@ -1,0 +1,44 @@
+<div class="container" style="width: 100%">
+    <h1 class="page-header">References</h1>
+
+    <!-- drop down button -->
+    <div class="btn-group" uib-dropdown>
+        <button id="split-button" type="button" class="btn btn-danger">{{ getCategory() }}</button>
+        <button type="button" class="btn btn-danger" uib-dropdown-toggle>
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+            <li ng-repeat="reference in references | unique:'category'">
+                <a ng-click="selectCategory(reference)" ng-show="getCategory() !== reference ? true : false" href="">{{reference}}</a>
+            </li>
+            <li><a ng-click="selectCategory()" ng-show="getCategory() !== 'All' ? true : false" href="">All</a></li>
+        </ul>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Framework/CodeBase</th>
+                <th>Category</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="reference in references | filter:categoryFilter | orderBy: 'title'">
+                <td>{{1 + $index}}</td>
+                <td>{{reference.title}}</td>
+                <td>{{reference.framework}}</td>
+                <td>{{reference.category.name}}</td>
+                <td>
+                    <a ui-sref="admin.reference({id: reference._id})" class="btn btn-xs btn-success">Edit</a>
+                    <button type="button" class="btn btn-xs btn-danger" ng-click="delete(reference._id, $index)">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <a ui-sref="admin.addReference" class="btn btn-primary pull-right">Add</a>
+            </tr>
+        </tbody>
+    </table>
+</div>

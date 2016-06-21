@@ -1,0 +1,352 @@
+[{
+    "name": "BricPro",
+    "title": "BricPro",
+    "picture": "bric_1.jpg",
+    "legend": "Search Engine / PHP / 2013",
+    "description": "A Wordpress website with a custom search engine module to index and sort CSR-compliant factories",
+    "technology": "PHP",
+    "framework": "Wordpress",
+    "link": "http://www.bricpro.com/",
+    "category": {
+        "_id": 1,
+        "name": "Promotional"
+    }
+}, {
+    "name": "RIF Trust",
+    "title": "RIF Trust",
+    "picture": "rif.jpg",
+    "legend": "Web / PHP / 2015",
+    "description": "Development of a website wealth management / citizenship. Rif trust is an aid agency based in Dubai. Personalized and highly interactive designs. Website Mobile-reactivity",
+    "technology": "PHP",
+    "framework": "Wordpress",
+    "link": "http://riftrust.com/",
+    "category": {
+        "_id": 1,
+        "name": "Promotional"
+    }
+}, {
+    "name": "Muller Merkel",
+    "title": "MMI",
+    "picture": "muller.jpg",
+    "legend": "Real Estate / PHP / 2013",
+    "description": "Property search-engine website built with Wordpress and designed as Flat UI",
+    "technology": "PHP",
+    "framework": "Wordpress",
+    "link": "http://mueller-merkle.de/en/",
+    "category": {
+        "_id": 1,
+        "name": "Promotional"
+    }
+}, {
+    "name": "Höhenhaus",
+    "title": "Köln-Höhenhaus",
+    "picture": "hohenhaus.jpg",
+    "legend": "Real Estate / Parallax / 2013",
+    "description": "German real-estate website developed in NodeJS for optimal load performance and HTML5 for mobile and tablet responsiveness",
+    "technology": "NodeJS",
+    "framework": "ExpressJS",
+    "link": "http://www.hoehenhaus9.de/",
+    "category": {
+        "_id": 1,
+        "name": "Promotional"
+    }
+}, {
+    "name": "Qualisens",
+    "title": "Qualisens",
+    "picture": "qualisens.jpg",
+    "legend": "Service / PHP / 2015",
+    "description": "Development of a website providing a quality audit. Its investigators, chosen precisely because of their Qualisystem software, carry thousands of investigations each year in France and abroad. Personalized and highly interactive designs. Website Mobile-reactivity.",
+    "technology": "PHP",
+    "framework": "Wordpress",
+    "link": "http://www.qualisens.eu/",
+    "category": {
+        "_id": 1,
+        "name": "Promotional"
+    }
+}, {
+    "name": "Fogs Fond",
+    "title": "Fogs Fond",
+    "picture": "fogsFond.jpg",
+    "legend": "Finance / PHP / 2015",
+    "description": "Mobile-responsive website to apply for grants, automating the process of collecting, screening and confirming grant applications",
+    "technology": "PHP",
+    "framework": "Wordpress",
+    "link": "https://www.fogfond.dk/",
+    "category": {
+        "_id": 1,
+        "name": "Promotional"
+    }
+}, {
+    "name": "Knaek Afgiften",
+    "title": "Knaek Afgiften",
+    "picture": "knaek.jpg",
+    "legend": "Web / PHP / 2014",
+    "description": "Online petition made in Wordpress to crack the tax on nuts, a law only Denmark has in the world, signing up using FB as identification",
+    "technology": "PHP",
+    "framework": "Wordpress",
+    "link": "http://xn--knk-zla.dk/",
+    "category": {
+        "_id": 1,
+        "name": "Promotional"
+    }
+}, {
+    "name": "SIE-Hunting",
+    "title": "SIE-Hunting",
+    "picture": "newsie-hunting.jpg",
+    "legend": "Real Estate / Parallax / 2013",
+    "description": "Mobile-responsive Wordpress blog for hunting gear enthusiasts to support the community on Scandinavia's largest hunting gear web shop",
+    "technology": "PHP",
+    "framework": "Wordpress",
+    "link": "http://jagt.sie-hunting.com/",
+    "category": {
+        "_id": 1,
+        "name": "Promotional"
+    }
+}, {
+    "name": "Alter London",
+    "title": "Alter London",
+    "picture": "alterlondon-home-1v2.jpg",
+    "legend": "E-commerce / PHP / 2014",
+    "description": "Custom e-commerce developed with PHP framework Laravel and Composer (with a complex price algorithm) for a London-based retailer in bespoke furniture",
+    "technology": "PHP",
+    "framework": "Laravel + Compose",
+    "link": "http://www.alterlondon.com/",
+    "category": {
+        "_id": 2,
+        "name": "Ecommerce"
+    }
+}, {
+    "name": "Instant Chef",
+    "title": "Instant Chef",
+    "picture": "newinstantchef2.jpg",
+    "legend": "E-commerce / PHP / 2014",
+    "description": "Instant Chef is an e-commerce site for gourmet food and a fine high-end grocery store. With Instant Chef products, customers may, for a meal or cocktail, become chefs instantly.",
+    "technology": "HTML5 + PHP",
+    "framework": "Magento",
+    "link": "https://www.instantchef.com/",
+    "category": {
+        "_id": 2,
+        "name": "Ecommerce"
+    }
+}, {
+    "name": "Beach Glam",
+    "title": "Beach Glam",
+    "picture": "beach_1.jpg",
+    "legend": "Web / PHP / 2014",
+    "description": "Custom PHP-based ecommerce responsive website built with the CodeIgniter framework for a NYC-based start-up selling beachwear bundles",
+    "technology": "PHP",
+    "framework": "CodeIgniter",
+    "link": "http://www.beachglam.com/",
+    "category": {
+        "_id": 2,
+        "name": "Ecommerce"
+    }
+}, {
+    "name": "Gaspard&Louise",
+    "title": "Gaspard&Louise",
+    "picture": "Gaspard&Louise-Accueil.jpg",
+    "legend": "E-commerce / PHP / 2015",
+    "description": "Mobile-responsive e-commerce website selling clothes for infants or toddlers.",
+    "technology": "PHP",
+    "framework": "Prestashop",
+    "link": "https://gaspardetlouise.com/en/",
+    "category": {
+        "_id": 2,
+        "name": "Ecommerce"
+    }
+}, {
+    "name": "Dima Ayad",
+    "title": "Dima Ayad",
+    "picture": "dimaayad_collection_1v2.jpg",
+    "legend": "E-commerce / PHP / 2014",
+    "description": "Prestashop-based ecommerce website for Arabic fashion designer Dima Ayad, shipping to clients in more than 30 countries",
+    "technology": "PHP",
+    "framework": "Laravel + Composer",
+    "link": "http://dimaayad.com/",
+    "category": {
+        "_id": 2,
+        "name": "Ecommerce"
+    }
+}, {
+    "name": "Cykelbanditten",
+    "title": "Cykelbanditten",
+    "picture": "newcykelband.jpg",
+    "legend": "E-commerce / PHP / 2014",
+    "description": "Desktop-responsive Magento website maintained for Danish retailer of modern bycicles with a simple checkout process and an internal tracking system for physical stores to deliver orders",
+    "technology": "HTML5 + PHP",
+    "framework": "Magento",
+    "link": "http://cykelbanditten.dk/",
+    "category": {
+        "_id": 2,
+        "name": "Ecommerce"
+    }
+}, {
+    "name": "Radar",
+    "title": "Radar",
+    "picture": "radar_1.jpg",
+    "legend": "Birthday App / Android / 2013",
+    "description": "Android merchant app to discover and purchase birthday items",
+    "technology": "HTML5",
+    "framework": "PhoneGap",
+    "link": "http://www.radarlive.dk/",
+    "category": {
+        "_id": 3,
+        "name": "Mobile"
+    }
+}, {
+    "name": "Zyky",
+    "title": "Zyky",
+    "picture": "zyky.jpg",
+    "legend": "Music App / Android / 2013",
+    "description": "Android music app to discover, listen and download music from local artists",
+    "technology": "HTML5",
+    "framework": "PhoneGap",
+    "link": "http://zyky.com/",
+    "category": {
+        "_id": 3,
+        "name": "Mobile"
+    }
+}, {
+    "name": "Novo Nordisk",
+    "title": "Novo Nordisk",
+    "picture": "novo.jpg",
+    "legend": "IOS / Objective-C / 2015",
+    "description": "iOS application for medical follow-up allowing secured data transfers(SQS,HTTPS) needing high performances(safe data, fast connexion of storage platforms,etc) and a total fiability for the customers.",
+    "technology": "iOS",
+    "framework": "Objective-C",
+    "link": "http://www.novonordisk.com/",
+    "category": {
+        "_id": 3,
+        "name": "Mobile"
+    }
+}, {
+    "name": "Mapery",
+    "title": "Mapery",
+    "picture": "mapery.jpg",
+    "legend": "IOS / Swift / 2015",
+    "description": "Native iOS app developed in Swift for users to share places with their friends on an integrated Apple Maps.",
+    "technology": "iOS",
+    "framework": "Swift",
+    "link": "http://www.mappery.com/",
+    "category": {
+        "_id": 3,
+        "name": "Mobile"
+    }
+}, {
+    "name": "Foalder",
+    "title": "Foalder",
+    "picture": "newfoalder.jpg",
+    "legend": "IOS / Objective-C / 2015",
+    "description": "Native iOS app built in Swift that makes the user more aware of what pictures they take with a restriction of only three pictures a day so that their friends only see the most beautiful scenery.",
+    "technology": "iOS",
+    "framework": "Objective-C",
+    "link": "http://foalder.appstor.io/",
+    "category": {
+        "_id": 3,
+        "name": "Mobile"
+    }
+}, {
+    "name": "Minimiles",
+    "title": "Minimiles",
+    "picture": "minimiles_app.png",
+    "legend": "IOS / Swift / 2015",
+    "description": "iOS app built in Swift for children to plan trips, walking around on the interactive map to discover new locations in a new city, keeping a wishlist for parents to plan the final trip",
+    "technology": "iOS",
+    "framework": "Swift",
+    "link": "http://minimiles.com/",
+    "category": {
+        "_id": 3,
+        "name": "Mobile"
+    }
+}, {
+    "name": "Rappit",
+    "title": "Rappit",
+    "picture": "rappit.jpg",
+    "legend": "Web App / Node / 2014",
+    "description": "Android, iOS and web apps developed for a Copenhagen-based start-up working on a concept inspired by Groupon and Foursquare",
+    "technology": "NodeJS",
+    "framework": "Twitter-Bootstrap",
+    "link": "http://www.rappit.mobi/",
+    "category": {
+        "_id": 3,
+        "name": "Mobile"
+    }
+}, {
+    "name": "TV Graphics",
+    "title": "TV Graphics",
+    "picture": "tvgraphics_new_small.jpg",
+    "legend": "Web-App / Node / 2014",
+    "description": "Livescore web app built with Node and ExpressJS framework for instant updates on both handball and football games broadcast on Denmark's biggest channel TV2.",
+    "technology": "NodeJS",
+    "framework": "ExpressJS",
+    "link": "http://handballcis.tvgraphics.dk/",
+    "category": {
+        "_id": 4,
+        "name": "Custom"
+    }
+}, {
+    "name": "AOC",
+    "title": "AOC",
+    "picture": "aoc.jpg",
+    "legend": "Web-App / Ruby / 2014",
+    "description": "Entreprise Resource Planning System with Salesforce CRM to organize insurance plans and follow the evolution of prospects.",
+    "technology": "Ruby",
+    "framework": "Ruby on Rails",
+    "link": "http://www.aoc-insurancebroker.com/",
+    "category": {
+        "_id": 4,
+        "name": "Custom"
+    }
+}, {
+    "name": "Picturize",
+    "title": "Picturize",
+    "picture": "newpicturize2.jpg",
+    "legend": "Web-App / AngularJS / 2015",
+    "description": "Image managing system for pictures taken by photographers using their phones. The platform built makes it easy to participate in photography competitions using a mobile app, which is uploaded to the platform instantly.",
+    "technology": "NodeJS",
+    "framework": "ExpressJS",
+    "link": "http://dashboard.picturize.dk/#/welcome",
+    "category": {
+        "_id": 4,
+        "name": "Custom"
+    }
+}, {
+    "name": "Sanderman",
+    "title": "Sanderman",
+    "picture": "newsanderman.jpg",
+    "legend": "Mobile Web-app / Bootstrap / 2015",
+    "description": "Mobile responsive human resource management system for the management of concerns built in Twitters Bootstrap.",
+    "technology": "NodeJS",
+    "framework": "Twitter Bootstrap",
+    "link": "http://sanderman.com/",
+    "category": {
+        "_id": 4,
+        "name": "Custom"
+    }
+}, {
+    "name": "E-conomic",
+    "title": "E-conomic",
+    "picture": "neweconomic.jpg",
+    "legend": "Web-App / AngularJS / 2015 ",
+    "description": "PHP-based admin panel built with CodeIgniter to track and monitor performances for affiliates",
+    "technology": "PHP",
+    "framework": "CodeIgniter",
+    "link": "http://partner.e-conomic.com/",
+    "category": {
+        "_id": 4,
+        "name": "Custom"
+    }
+}, {
+    "name": "Woiremose",
+    "title": "Woiremose",
+    "picture": "woiremose.jpg",
+    "legend": "Web-App / AngularJS / 2015",
+    "description": "An auditing tool built in NodeJS using AngularJS that allows to pull accounting data via APIs from e-conomic to map accounts within the income statement, balance sheet and tax statements. Once mapped, with only one click of a button the client can get audited annual accounts exported from the system. It takes 5 minutes rather than 10 days for an accountant!",
+    "technology": "NodeJS",
+    "framework": "AngularJS",
+    "link": "http://woiremose.dk/",
+    "category": {
+        "_id": 4,
+        "name": "Custom"
+    }
+}]

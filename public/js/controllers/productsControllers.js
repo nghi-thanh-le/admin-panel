@@ -2,8 +2,6 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', []);
-
 angular.module('myApp.controllers')
     .controller('productsController', function ($scope, $state, $window, productsService, toastr) {
         var selectedCategory = null; // null at default but will be string later

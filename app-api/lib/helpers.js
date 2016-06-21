@@ -2,6 +2,8 @@ var jwt = require('jsonwebtoken');
 var config = require('./config');
 var secretKey = config.secretKey;
 var Admin = require('../models/admin');
+var Q = require('q');
+var util = require('util');
 
 var sendJsonResponse = function (res, status, message) {
     res.status(status).json(message);
@@ -10,14 +12,17 @@ var sendJsonResponse = function (res, status, message) {
 var _idForCategory = function(category) {
     var _id;
     switch (category) {
-        case 'Promo':
+        case 'Promotional':
             _id = 1;
             break;
-        case 'Eco':
+        case 'Ecommerce':
             _id = 2;
             break;
         case 'Mobile':
             _id = 3;
+            break;
+        case 'Custom':
+            _id = 4;
             break;
     }
     return _id;
@@ -56,29 +61,38 @@ var validateToken = function (req, res, next) {
     }
 }
 
-var handlingEdit = function (productModel, req, res, callback) {
-    productModel.findById({
+var handlingEdit = function (Model, type, req, res, callback) {
+    Model.findById({
         _id: req.body._id
-    }, function(err, product) {
-        if (err || !product) {
+    }, function(err, model) {
+        if (err || !model) {
             return sendJsonResponse(res, 404, err);
         }
 
-        product.title = req.body.title;
-        product.category = {
+        model.title = req.body.title;
+        model.category = {
             _id: _idForCategory(req.body.category),
             name: req.body.category
         };
-        product.framework = req.body.framework;
-        product.buyDomainUrl = {
-            withoutDomainUrl: req.body.withoutDomainUrl,
-            withDomainUrl: req.body.withDomainUrl
-        };
-        product.dateAdded = new Date(req.body.dateAdded);
-        product.popularity = req.body.popularity;
-        product.previewUrl = req.body.previewUrl;
 
-        callback(product, res);
+        if(type == "Product") {
+            model.framework = req.body.framework;
+            model.buyDomainUrl = {
+                withoutDomainUrl: req.body.withoutDomainUrl,
+                withDomainUrl: req.body.withDomainUrl
+            };
+            model.dateAdded = new Date(req.body.dateAdded);
+            model.popularity = req.body.popularity;
+            model.previewUrl = req.body.previewUrl;
+        } else if(type == "Reference") {
+            model.name = req.body.name;
+            model.legend = req.body.legend;
+            model.description = req.body.description;
+            model.technology = req.body.technology;
+            model.framework = req.body.framework;
+            model.link = req.body.link;
+        }
+        callback(model, res);
     });
 };
 

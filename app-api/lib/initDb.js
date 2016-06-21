@@ -14,11 +14,12 @@ var mongoose = require('mongoose');
 var Products = require('../models/products');
 var Admin = require('../models/admin');
 var Q = require('q');
+var dbUrl = require('./config').dbUrl;
 
 var productsPath = path.join(__dirname, '../models/products.json');
 var productsArrJson;
 
-mongoose.connect('mongodb://localhost:27017/admin-panel-github', function(err) {
+mongoose.connect(dbUrl, function(err) {
     if (err) throw err;
     console.log('Mongoose database connected!!');
 }).then(function() {

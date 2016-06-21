@@ -12,7 +12,6 @@ var path = require('path');
 var fs = require('fs');
 var mongoose = require('mongoose');
 var Products = require('../models/products');
-var Admin = require('../models/admin');
 var Q = require('q');
 var dbUrl = require('./config').dbUrl;
 
@@ -22,12 +21,9 @@ var productsArrJson;
 mongoose.connect(dbUrl, function(err) {
     if (err) throw err;
     console.log('Mongoose database connected!!');
-}).then(function() {
-    mongoose.connection.db.dropCollection('products', function (err) {
-        if(err) {
-            throw err;
-        }
-        console.log('Drop products collection');
+
+    Products.remove({}, function (err) {
+        if(err) throw err;
         fs.readFile(productsPath, 'utf8', function(err, obj) {
             var promises = [];
             productsArrJson = JSON.parse(obj);

@@ -51,20 +51,39 @@ angular.module('myApp', [
                     }
                 }
             })
+            .state('admin.dashboard', {
+                url: '/dashboard',
+                templateUrl: 'partials/admin/main.html'
+            })
             .state('admin.products', {
                 url: '/products',
-                templateUrl: 'partials/admin/products.html',
+                templateUrl: 'partials/admin/products/products.html',
                 controller: 'productsController'
             })
             .state('admin.product', {
                 url: '/product/:title',
-                templateUrl: 'partials/admin/product.html',
+                templateUrl: 'partials/admin/products/product.html',
                 controller: 'productController'
             })
             .state('admin.addProduct', {
                 url: '/addProduct',
-                templateUrl: 'partials/admin/addProduct.html',
+                templateUrl: 'partials/admin/products/addProduct.html',
                 controller: 'addProductController'
+            })
+            .state('admin.references', {
+                url: '/references',
+                templateUrl: 'partials/admin/references/references.html',
+                controller: 'referencesController'
+            })
+            .state('admin.reference', {
+                url: '/reference/:id',
+                templateUrl: 'partials/admin/references/reference.html',
+                controller: 'referenceController'
+            })
+            .state('admin.addReference', {
+                url: '/addReference',
+                templateUrl: 'partials/admin/references/addReference.html',
+                controller: 'addReferenceController'
             });
     })
     .run(function($rootScope, $state, $window, jwtHelper) {

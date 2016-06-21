@@ -1,0 +1,118 @@
+<div class="container" style="width: 100%">
+    <div class="row">
+        <div class="col-md-8" ng-if="showEditForm">
+            <div class="alert alert-dismissible alert-info" style="width: 600px;">
+                <p>Image must have Min/Max Width: 1349px; Min Height: 900px; Max Height: 6000px</p>
+            </div>
+            <form class="form-horizontal" ng-submit="editReference(formInput)">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Title</label>
+                    <div class="col-md-6">
+                        <input type="text" ng-model="formInput.title" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Name</label>
+                    <div class="col-md-6">
+                        <input type="text" ng-model="formInput.name" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Picture</label>
+                    <div class="col-md-6">
+                        <!-- <input type="file" ngf-select ngf-pattern="'image/*'" ng-model="formInput.picture"
+                        class="form-control" ngf-accept="'image/*'" required
+                        ngf-min-height="900" ngf-max-height="6000"
+                        ngf-min-width="1349" ngf-max-width="1349"> -->
+                        <input type="file" ngf-select ngf-pattern="'image/*'" ng-model="formInput.picture" class="form-control" ngf-accept="'image/*'">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Legend</label>
+                    <div class="col-md-6">
+                        <input type="text" ng-model="formInput.legend" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Description</label>
+                    <div class="col-md-6">
+                        <textarea ng-model="formInput.description" class="form-control" rows="6" cols="100" required></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Technology</label>
+                    <div class="col-md-6">
+                        <input type="text" ng-model="formInput.technology" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Framework</label>
+                    <div class="col-md-6">
+                        <input type="text" ng-model="formInput.framework" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Category</label>
+                    <div class="col-md-6">
+                        <select class="form-control" ng-model="formInput.category.name">
+                            <option ng-repeat="category in categoryList" ng-value="{{category.name}}">{{category.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Link</label>
+                    <div class="col-md-6">
+                        <input type="text" ng-model="formInput.link" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="reset" class="btn btn-default">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-8" ng-if="!showEditForm">
+            <table class="table">
+                <tr>
+                    <th>Title</th>
+                    <td>{{ reference.title }}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ reference.name }}</td>
+                </tr>
+                <tr>
+                    <th>Legend</th>
+                    <td>{{ reference.legend }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ reference.description }}</td>
+                </tr>
+                <tr>
+                    <th>Category</th>
+                    <td>{{ reference.category.name }}</td>
+                </tr>
+                <tr>
+                    <th>Framework</th>
+                    <td>{{ reference.framework }}</td>
+                </tr>
+                <tr>
+                    <th>Technology</th>
+                    <td>{{ reference.technology }}</td>
+                </tr>
+                <tr>
+                    <th>View</th>
+                    <td><a ng-href="{{reference.link}}">{{ reference.link }}</a></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <img ng-src="/img/references/{{reference.picture}}" class="img-responsive"/>
+        </div>
+    </div>
+    <button type="button" class="btn btn-xs btn-success" ng-click="toggleForm()" ng-show="!showEditForm">Edit</button>
+    <button type="button" class="btn btn-xs btn-warning" ng-click="toggleForm()" ng-show="showEditForm">Back</button>
+</div>
