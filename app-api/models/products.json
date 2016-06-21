@@ -2,7 +2,7 @@
     "framework": "express",
     "category": {
         "_id": 1,
-        "name": "Promo"
+        "name": "Promomotional"
     },
     "title": "example-0",
     "buyDomainUrl": {
@@ -16,7 +16,7 @@
     "framework": "angular",
     "category": {
         "_id": 1,
-        "name": "Promo"
+        "name": "Promomotional"
     },
     "title": "example-1",
     "buyDomainUrl": {
@@ -30,7 +30,7 @@
     "framework": "express",
     "category": {
         "_id": 2,
-        "name": "Eco"
+        "name": "Ecommerce"
     },
     "title": "example-2",
     "buyDomainUrl": {
@@ -44,7 +44,7 @@
     "framework": "wordpress",
     "category": {
         "_id": 2,
-        "name": "Eco"
+        "name": "Ecommerce"
     },
     "title": "example-3",
     "buyDomainUrl": {
@@ -55,10 +55,10 @@
     "previewUrl": "shop.example.com/themes/example-3",
     "imgUrl": "example-3.png"
 }, {
-    "framework": "angular",
+    "framework": "ios",
     "category": {
-        "_id": 1,
-        "name": "Promo"
+        "_id": 3,
+        "name": "Mobile"
     },
     "title": "example-4",
     "buyDomainUrl": {
@@ -69,7 +69,7 @@
     "previewUrl": "shop.example.com/themes/example-4",
     "imgUrl": "example-4.png"
 }, {
-    "framework": "ios",
+    "framework": "android",
     "category": {
         "_id": 3,
         "name": "Mobile"
@@ -82,32 +82,4 @@
     "popularity": 0,
     "previewUrl": "shop.example.com/themes/example-5",
     "imgUrl": "example-5.png"
-}, {
-    "framework": "android",
-    "category": {
-        "_id": 3,
-        "name": "Mobile"
-    },
-    "title": "example-6",
-    "buyDomainUrl": {
-        "withoutDomainUrl": "shop.example.com/store/cart.php?a=add&pid=1",
-        "withDomainUrl": "shop.example.com/store/cart.php?a=add&pid=2"
-    },
-    "popularity": 0,
-    "previewUrl": "shop.example.com/themes/example-6",
-    "imgUrl": "example-6.png"
-}, {
-    "framework": "html",
-    "category": {
-        "_id": 1,
-        "name": "Promo"
-    },
-    "title": "example-7",
-    "buyDomainUrl": {
-        "withoutDomainUrl": "shop.example.com/store/cart.php?a=add&pid=1",
-        "withDomainUrl": "shop.example.com/store/cart.php?a=add&pid=2"
-    },
-    "popularity": 0,
-    "previewUrl": "shop.example.com/themes/example-7",
-    "imgUrl": "example-7.png"
 }]
