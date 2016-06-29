@@ -1,0 +1,184 @@
+<div class="container" style="width: 100%">
+    <div class="row">
+        <div class="col-md-8" ng-if="showEditForm">
+            <div class="alert alert-dismissible alert-info" style="width: 600px;">
+                <p>Image must have Min/Max Width: 1349px; Min Height: 900px; Max Height: 6000px</p>
+            </div>
+            <form class="form-horizontal" ng-submit="editJob(formInput)">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Title</label>
+                    <div class="col-md-3">
+                        <input type="text" ng-model="formInput.title" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Group</label>
+                    <div class="col-md-2">
+                        <select class="form-control" ng-model="formInput.group">
+                            <option ng-repeat="group in jobsGroup">{{group}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Introduction</label>
+                    <div class="col-md-6">
+                        <textarea rows="8" cols="40" class="form-control" required ng-model="formInput.introduction"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Person Image</label>
+                    <div class="col-md-3">
+                        <!-- <input type="file" ngf-select ngf-pattern="'image/*'" ng-model="formInput.person_image"
+                        class="form-control" ngf-accept="'image/*'" required
+                        ngf-min-height="900" ngf-max-height="6000"
+                        ngf-min-width="1349" ngf-max-width="1349"> -->
+                        <input type="file" ngf-select ngf-pattern="'image/*'" ng-model="formInput.person_image" class="form-control" ngf-accept="'image/*'" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Persone name</label>
+                    <div class="col-md-6">
+                        <input type="text" ng-model="formInput.person_name2" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Title Description</label>
+                    <div class="col-md-6">
+                        <input type="text" ng-model="formInput.titleDescription" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Meta Description</label>
+                    <div class="col-md-6">
+                        <input type="text" ng-model="formInput.metaDescription" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">First Question</label>
+                    <div class="col-md-6">
+                        <input type="text" ng-model="formInput.interview_question1" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Answer</label>
+                    <div class="col-md-6">
+                        <input type="text" ng-model="formInput.interview_answer1" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Second Question</label>
+                    <div class="col-md-6">
+                        <input type="text" ng-model="formInput.interview_question2" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Answer</label>
+                    <div class="col-md-6">
+                        <input type="text" ng-model="formInput.interview_answer2" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Third Question</label>
+                    <div class="col-md-6">
+                        <input type="text" ng-model="formInput.interview_question3" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Answer</label>
+                    <div class="col-md-6">
+                        <input type="text" ng-model="formInput.interview_answer3" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Practical Details</label>
+                    <div class="col-md-6">
+                        <input type="text" ng-model="formInput.practical_detail1" class="form-control" required> <br>
+                        <input type="text" ng-model="formInput.practical_detail2" class="form-control" required> <br>
+                        <input type="text" ng-model="formInput.practical_detail3" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <button type="reset" class="btn btn-xs btn-default">Cancel</button>
+                        <button type="submit" class="btn btn-xs btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row" ng-if="!showEditForm">
+            <div class="col-md-8">
+                <table class="table">
+                    <tr>
+                        <th>Title</th>
+                        <td>{{ job.title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Group</th>
+                        <td>{{ job.group }}</td>
+                    </tr>
+                    <tr>
+                        <th>Person Name</th>
+                        <td>{{ job.person_name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Person Name 2</th>
+                        <td>{{ job.person_name2 }}</td>
+                    </tr>
+                    <tr>
+                        <th>Introduction</th>
+                        <td colspan="2">{{ job.introduction }}</td>
+                    </tr>
+                    <tr>
+                        <th>Title Description</th>
+                        <td>{{ job.titleDescription }}</td>
+                    </tr>
+                    <tr>
+                        <th>Meta Description</th>
+                        <td>{{ job.metaDescription }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <img ng-src="/img/jobs/{{job.person_img}}" class="img-responsive"/>
+            </div>
+        </div>
+        <div class="row" ng-if="!showEditForm">
+            <h2>Question & Answer</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Questions</th>
+                        <th>Answers</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="questAns in questAnsArr">
+                        <td>{{questAns.question}}</td>
+                        <td>{{questAns.answer}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row" ng-if="!showEditForm">
+            <h2>Practical Details</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th ng-repeat="detail in job.practical_details">
+                            Detail {{ $index + 1 }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td ng-repeat="detail in job.practical_details">
+                            {{detail}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button type="button" class="btn btn-xs btn-success" ng-click="toggleForm()" ng-show="!showEditForm">Edit</button>
+    <button type="button" class="btn btn-xs btn-warning" ng-click="toggleForm()" ng-show="showEditForm">Back</button>
+</div>

@@ -1,0 +1,20 @@
+<div class="container" style="width: 100%">
+    <div class="panel panel-default" ng-repeat="job in jobs">
+        <div class="panel-heading" ng-click="isCollapsed = !isCollapsed">
+            <div class="container center-panel">
+                <!-- <h4 class="center-text">{{job.section_name}}</h4> -->
+                {{job.section_name}}
+            </div>
+        </div>
+        <div class="panel-body" uib-collapse="isCollapsed">
+            <div class="row" ng-repeat="data in job.data">
+                <div class="container">
+                    <p class="col-md-4">{{data.name}}</p>
+                    <a ui-sref="admin.job({section_id: job.section_id, jsonfile: data.jsonfile})" class="btn btn-xs btn-primary">Edit</a>
+                    <button type="button" class="btn btn-xs btn-danger" ng-click="delete(job.section_id, data.jsonfile)">Delete</button>
+                    <input type="checkbox" ng-model="data.isVisible">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
