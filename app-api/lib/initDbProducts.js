@@ -13,12 +13,11 @@ var fs = require('fs');
 var mongoose = require('mongoose');
 var Products = require('../models/products');
 var Q = require('q');
-var dbUrl = require('./config').dbUrl;
 
 var productsPath = path.join(__dirname, '../models/products.json');
 var productsArrJson;
 
-mongoose.connect(dbUrl, function(err) {
+mongoose.connect('mongodb://localhost/admin-panel', function(err) {
     if (err) throw err;
     console.log('Mongoose database connected!!');
 

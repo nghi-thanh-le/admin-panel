@@ -11,9 +11,8 @@ OR
 var mongoose = require('mongoose');
 var Admin = require('../models/admin');
 var util = require('util');
-var dbUrl = require('./config').dbUrl;
 
-mongoose.connect(dbUrl, function(err) {
+mongoose.connect('mongodb://localhost/admin-panel', function(err) {
     if (err) throw err;
     console.log('Mongoose database connected!!');
 

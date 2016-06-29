@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var gracefulShutdown;
-var dbUrl = require('../lib/config').dbUrl;
+var dbUrl = 'mongodb://localhost/admin-panel-test';
 
 module.exports = function () {
 

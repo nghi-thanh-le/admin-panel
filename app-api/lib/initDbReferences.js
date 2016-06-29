@@ -13,13 +13,12 @@ var fs = require('fs');
 var mongoose = require('mongoose');
 var References = require('../models/references');
 var Q = require('q');
-var _ = require('lodash');
-var dbUrl = require('./config').dbUrl;
+var _ = require('lodash')
 
 var referencesPath = path.join(__dirname, '../models/references.json');
 var referencesArrJson;
 
-mongoose.connect(dbUrl, function(err) {
+mongoose.connect('mongodb://localhost/admin-panel', function(err) {
     if (err) throw err;
     console.log('Mongoose database connected!!');
 
