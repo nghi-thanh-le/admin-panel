@@ -15,9 +15,9 @@ angular.module('myApp.services')
                     method: 'GET'
                 });
             },
-            getReferenceById: function(_id) {
+            getReferenceByTitle: function(title) {
                 return $http({
-                    url: '/api/reference/' + _id,
+                    url: '/api/reference/' + title,
                     method: 'GET'
                 });
             },
@@ -38,27 +38,8 @@ angular.module('myApp.services')
                     }
                 });
             },
-            editReference: function(reference) {
-                return Upload.upload({
-                    url: '/api/reference/editWithObject',
-                    method: 'POST',
-                    data: {
-                        _id: reference._id,
-                        title: reference.title,
-                        name: reference.name,
-                        file: reference.picture,
-                        legend: reference.legend,
-                        description: reference.description,
-                        technology: reference.technology,
-                        framework: reference.framework,
-                        link: reference.link,
-                        category: reference.category.name
-                    }
-                });
-            },
-            editReferenceV2: function (reference) {
-                return $http.post('/api/reference/editWithString', {
-                    _id: reference._id,
+            editReference: function(reference, oldTitle) {
+                var data = {
                     title: reference.title,
                     name: reference.name,
                     file: reference.picture,
@@ -68,11 +49,36 @@ angular.module('myApp.services')
                     framework: reference.framework,
                     link: reference.link,
                     category: reference.category.name
+                };
+                if(angular.isDefined(oldTitle)) {
+                    data.oldTitle = oldTitle;
+                }
+                return Upload.upload({
+                    url: '/api/reference/editWithObject',
+                    method: 'POST',
+                    data: data
                 });
             },
-            deleteReferenceById: function(id) {
+            editReferenceV2: function (reference, oldTitle) {
+                var data = {
+                    title: reference.title,
+                    name: reference.name,
+                    picture: reference.picture,
+                    legend: reference.legend,
+                    description: reference.description,
+                    technology: reference.technology,
+                    framework: reference.framework,
+                    link: reference.link,
+                    category: reference.category.name
+                }
+                if(angular.isDefined(oldTitle)) {
+                    data.oldTitle = oldTitle;
+                }
+                return $http.post('/api/reference/editWithString', data);
+            },
+            deleteReference: function(title) {
                 return $http.post('/api/reference/delete',{
-                    _id: id
+                    title: title
                 });
             }
         };

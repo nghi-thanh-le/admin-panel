@@ -8,11 +8,11 @@ angular.module('myApp.services', []);
 
 angular.module('myApp.services')
     .service('Auth', function($http, $window) {
-        this.login = function (credentials) {
+        this.login = function(credentials) {
             return $http.post('api/login', credentials);
         };
 
-        this.logout = function () {
+        this.logout = function() {
             $window.localStorage.removeItem('jwt');
         };
     });

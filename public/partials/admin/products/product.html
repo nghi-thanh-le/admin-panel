@@ -62,7 +62,9 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">Popularity</label>
                     <div class="col-md-8">
-                        <select class="form-control" ng-model="formInput.popularity" ng-options="popularity for popularity in popularities"></select>
+                        <select class="form-control" ng-model="formInput.popularity">
+                            <option ng-repeat="popularity in popularities">{{popularity}}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">

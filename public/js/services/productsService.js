@@ -41,27 +41,8 @@ angular.module('myApp.services')
                     }
                 });
             },
-            editProduct: function(product) {
-                return Upload.upload({
-                    url: '/api/product/editWithObject',
-                    method: 'POST',
-                    data: {
-                        _id: product._id,
-                        title: product.title,
-                        framework: product.framework,
-                        category: product.category.name,
-                        dateAdded: product.dateAdded.toISOString(),
-                        withDomainUrl: product.buyDomainUrl.withDomainUrl,
-                        withoutDomainUrl: product.buyDomainUrl.withoutDomainUrl,
-                        previewUrl: product.previewUrl,
-                        popularity: product.popularity,
-                        file: product.imgUrl
-                    }
-                });
-            },
-            editProductV2: function (product) {
-                return $http.post('/api/product/editWithString', {
-                    _id: product._id,
+            editProduct: function(product, oldTitle) {
+                var data = {
                     title: product.title,
                     framework: product.framework,
                     category: product.category.name,
@@ -69,12 +50,38 @@ angular.module('myApp.services')
                     withDomainUrl: product.buyDomainUrl.withDomainUrl,
                     withoutDomainUrl: product.buyDomainUrl.withoutDomainUrl,
                     previewUrl: product.previewUrl,
-                    popularity: product.popularity
+                    popularity: product.popularity,
+                    file: product.imgUrl
+                };
+                if(angular.isDefined(oldTitle)) {
+                    data.oldTitle = oldTitle;
+                }
+                return Upload.upload({
+                    url: '/api/product/editWithObject',
+                    method: 'POST',
+                    data: data
                 });
             },
-            deleteProductById: function(id) {
+            editProductV2: function (product, oldTitle) {
+                var data = {
+                    title: product.title,
+                    framework: product.framework,
+                    category: product.category.name,
+                    dateAdded: product.dateAdded.toISOString(),
+                    withDomainUrl: product.buyDomainUrl.withDomainUrl,
+                    withoutDomainUrl: product.buyDomainUrl.withoutDomainUrl,
+                    previewUrl: product.previewUrl,
+                    popularity: product.popularity,
+                    imgUrl: product.imgUrl
+                };
+                if(angular.isDefined(oldTitle)) {
+                    data.oldTitle = oldTitle;
+                }
+                return $http.post('/api/product/editWithString', data);
+            },
+            deleteProductByTitle: function(title) {
                 return $http.post('/api/product/delete',{
-                    _id: id
+                    title: title
                 });
             }
         };

@@ -32,22 +32,24 @@ angular.module('myApp.controllers')
             return selectedCategory == null || reference.category.name == selectedCategory;
         };
 
-        $scope.delete = function (_id, index) {
-            referencesService.deleteReferenceById(_id).then(value => {
+        $scope.delete = function (title) {
+            referencesService.deleteReference(title).then(value => {
                 $window.location.reload();
             });
         };
     })
     .controller('referenceController', function ($scope, $state, $stateParams, referencesService, toastr) {
         $scope.categoryList = null;
+        var oldTitle = null;
         referencesService.getCategoryList().then(function(res){
             $scope.categoryList = res.data;
         });
 
         $scope.reference = null;
-        referencesService.getReferenceById($stateParams.id).then(function(res){
+        referencesService.getReferenceByTitle($stateParams.title).then(function(res){
             $scope.reference = res.data;
             $scope.formInput = angular.copy($scope.reference);
+            oldTitle = angular.copy($scope.reference.title);
         });
 
         $scope.showEditForm = false;
@@ -58,14 +60,14 @@ angular.module('myApp.controllers')
 
         $scope.editReference = function (reference) {
             if(angular.isObject(reference.picture)) {
-                referencesService.editReference(reference).then(function (res) {
+                referencesService.editReference(reference, oldTitle).then(function (res) {
                     toastr.info('Reference edited');
                     $state.go('admin.references');
                 }, function (err) {
-                    console.log('err::::::::', err);
+                    toastr.err(err);
                 });
             } else if(angular.isString(reference.picture)) {
-                referencesService.editReferenceV2(reference).then(function (res) {
+                referencesService.editReferenceV2(reference, oldTitle).then(function (res) {
                     toastr.info('Reference edited');
                     $state.go('admin.references');
                 }, function (err) {
@@ -80,13 +82,9 @@ angular.module('myApp.controllers')
             $scope.categoryList = res.data;
         });
 
-        $scope.reference = {
-            popularity: 0
-        };
-
         $scope.submitForm = function (reference) {
             referencesService.addReference(reference).then(value => {
-                toastr.error('Added new reference');
+                toastr.success('Added new reference');
                 $state.go('admin.references');
             });
         };

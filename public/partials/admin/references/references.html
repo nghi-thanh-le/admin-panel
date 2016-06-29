@@ -32,12 +32,14 @@
                 <td>{{reference.framework}}</td>
                 <td>{{reference.category.name}}</td>
                 <td>
-                    <a ui-sref="admin.reference({id: reference._id})" class="btn btn-xs btn-success">Edit</a>
-                    <button type="button" class="btn btn-xs btn-danger" ng-click="delete(reference._id, $index)">Delete</button>
+                    <a ui-sref="admin.reference({title: reference.title})" class="btn btn-xs btn-success">Edit</a>
+                    <button type="button" class="btn btn-xs btn-danger" ng-click="delete(reference.title)">Delete</button>
                 </td>
             </tr>
             <tr>
                 <a ui-sref="admin.addReference" class="btn btn-primary pull-right">Add</a>
+                <a href="references/references.json" download="references.json" class="btn btn-default" target="_blank">Export</a>
+                <!-- <json-export url="/api/references" filename="my-awesome-pdf"></json-export> -->
             </tr>
         </tbody>
     </table>

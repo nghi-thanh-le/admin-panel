@@ -50,16 +50,17 @@ angular.module('myApp.filters', []).
     .filter('unique', function () {
         return function (products, propertyName) {
             // products = products.json;
-            // propertyName = ["eco", "promo", "mobile"];
+            // propertyName = ["Ecommerce", "Promotional", "Mobile", "Custom"];
             if(angular.isArray(products) && angular.isString(propertyName)){
                 // create empty results array
                 // it will return a unique array of category (string type), no duplicate value
                 var results = [];
                 var keys = {};
                 // at default:
-                // keys.eco = undefined
-                // keys.promo = undefined
-                // keys.mobile = undefined
+                // keys.Ecommerce = undefined
+                // keys.Promotional = undefined
+                // keys.Mobile = undefined
+                // keys.Custom = undefined
                 // loop through products then set property of keys object to true and add string value
                 // to true and push to arr
                 angular.forEach(products, function (product, key) {

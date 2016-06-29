@@ -10,7 +10,8 @@ angular.module('myApp', [
         'ui.bootstrap',
         'myApp.controllers',
         'myApp.services',
-        'myApp.filters'
+        'myApp.filters',
+        'myApp.directives'
     ]).config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, jwtInterceptorProvider) {
         $locationProvider.html5Mode({
             enabled: true,
@@ -44,8 +45,8 @@ angular.module('myApp', [
                 data: {
                     requiresLogin: true
                 },
-                controller: function ($scope, $state, $window) {
-                    $scope.logout = function () {
+                controller: function($scope, $state, $window) {
+                    $scope.logout = function() {
                         $window.localStorage.removeItem('jwt');
                         $state.go('login');
                     }
@@ -76,7 +77,7 @@ angular.module('myApp', [
                 controller: 'referencesController'
             })
             .state('admin.reference', {
-                url: '/reference/:id',
+                url: '/reference/:title',
                 templateUrl: 'partials/admin/references/reference.html',
                 controller: 'referenceController'
             })
@@ -84,6 +85,21 @@ angular.module('myApp', [
                 url: '/addReference',
                 templateUrl: 'partials/admin/references/addReference.html',
                 controller: 'addReferenceController'
+            })
+            .state('admin.jobs', {
+                url: '/jobs',
+                templateUrl: 'partials/admin/jobs/jobs.html',
+                controller: 'jobsControllers'
+            })
+            .state('admin.job', {
+                url: '/job/:section_id/:jsonfile',
+                templateUrl: 'partials/admin/jobs/job.html',
+                controller: 'jobController'
+            })
+            .state('admin.addJob', {
+                url: '/job/add',
+                templateUrl: 'partials/admin/jobs/addJob.html',
+                controller: 'addJobController'
             });
     })
     .run(function($rootScope, $state, $window, jwtHelper) {
@@ -92,7 +108,7 @@ angular.module('myApp', [
             if (toState.data && toState.data.requiresLogin) {
                 if (!localStorage.getItem('jwt') || jwtHelper.isTokenExpired(localStorage.getItem('jwt')) || !jwtHelper.decodeToken(localStorage.getItem('jwt'))) {
                     event.preventDefault();
-                    if(localStorage.getItem('jwt')) {
+                    if (localStorage.getItem('jwt')) {
                         localStorage.removeItem('jwt');
                     }
                     $state.go('login');

@@ -33,11 +33,13 @@
                 <td>{{product.category.name}}</td>
                 <td>
                     <a ui-sref="admin.product({title: product.title})" class="btn btn-xs btn-success">Edit</a>
-                    <button type="button" class="btn btn-xs btn-danger" ng-click="delete(product._id, $index)">Delete</button>
+                    <button type="button" class="btn btn-xs btn-danger" ng-click="delete(product.title)">Delete</button>
                 </td>
             </tr>
             <tr>
                 <a ui-sref="admin.addProduct" class="btn btn-primary pull-right">Add</a>
+                <a href="products/products.json" download="products.json" class="btn btn-default" target="_blank">Export</a>
+                <!-- <my-download id="content" get-data="getBlob()" /> -->
             </tr>
         </tbody>
     </table>

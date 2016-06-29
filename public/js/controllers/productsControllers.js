@@ -3,23 +3,29 @@
 /* Controllers */
 
 angular.module('myApp.controllers')
-    .controller('productsController', function ($scope, $state, $window, productsService, toastr) {
+    .controller('productsController', function($scope, $state, $window, productsService, toastr) {
         var selectedCategory = null; // null at default but will be string later
 
         $scope.products = null;
-        productsService.getProducts().then(function(res){
+        $scope.getBlob = null;
+        productsService.getProducts().then(function(res) {
             $scope.products = res.data;
+            $scope.getBlob = function () {
+                return new Blob(res.data, {
+                    type: "application/json"
+                });
+            };
         });
 
-        $scope.selectCategory = function (newCategory) {
+        $scope.selectCategory = function(newCategory) {
             selectedCategory = newCategory;
         };
 
-        $scope.getCategory = function () {
+        $scope.getCategory = function() {
             return selectedCategory || "All";
         }
 
-        $scope.categoryFilter = function (product) {
+        $scope.categoryFilter = function(product) {
             // if(selectedCategory == null) {
             //     return true;
             // } else {
@@ -32,54 +38,56 @@ angular.module('myApp.controllers')
             return selectedCategory == null || product.category.name == selectedCategory;
         };
 
-        $scope.delete = function (_id, index) {
-            productsService.deleteProductById(_id).then(value => {
+        $scope.delete = function(title) {
+            productsService.deleteProductByTitle(title).then(value => {
                 $window.location.reload();
             });
         };
     })
-    .controller('productController', function ($scope, $state, $stateParams, productsService, toastr) {
+    .controller('productController', function($scope, $state, $stateParams, productsService, toastr) {
         $scope.popularities = productsService.getPopularities();
+        var oldTitle = null;
 
         $scope.categoryList = null;
-        productsService.getCategoryList().then(function(res){
+        productsService.getCategoryList().then(function(res) {
             $scope.categoryList = res.data;
         });
 
         $scope.product = null;
-        productsService.getProductByTitle($stateParams.title).then(function(res){
+        productsService.getProductByTitle($stateParams.title).then(function(res) {
             $scope.product = res.data;
             $scope.formInput = angular.copy($scope.product);
             $scope.formInput.dateAdded = new Date($scope.product.dateAdded);
+            oldTitle = angular.copy($scope.product.title);
         });
 
         $scope.showEditForm = false;
 
-        $scope.toggleForm = function () {
+        $scope.toggleForm = function() {
             $scope.showEditForm = !$scope.showEditForm;
         }
 
-        $scope.editProduct = function (product) {
-            if(angular.isObject(product.imgUrl)) {
-                productsService.editProduct(product).then(function (res) {
+        $scope.editProduct = function(product) {
+            if (angular.isObject(product.imgUrl)) {
+                productsService.editProduct(product, oldTitle).then(function(res) {
                     toastr.info('Product edited');
                     $state.go('admin.products');
-                }, function (err) {
+                }, function(err) {
                     console.log('err::::::::', err);
                 });
-            } else if(angular.isString(product.imgUrl)) {
-                productsService.editProductV2(product).then(function (res) {
+            } else if (angular.isString(product.imgUrl)) {
+                productsService.editProductV2(product, oldTitle).then(function(res) {
                     toastr.info('Product edited');
                     $state.go('admin.products');
-                }, function (err) {
+                }, function(err) {
                     toastr.err(err);
                 })
             }
         }
     })
-    .controller('addProductController', function ($scope, $state, productsService, toastr) {
+    .controller('addProductController', function($scope, $state, productsService, toastr) {
         $scope.categoryList = null;
-        productsService.getCategoryList().then(function(res){
+        productsService.getCategoryList().then(function(res) {
             $scope.categoryList = res.data;
         });
 
@@ -89,23 +97,10 @@ angular.module('myApp.controllers')
 
         $scope.popularities = productsService.getPopularities();
 
-        $scope.submitForm = function (product) {
+        $scope.submitForm = function(product) {
             productsService.addProduct(product).then(value => {
                 toastr.error('Added new product');
                 $state.go('admin.products');
             });
         }
-    })
-    .controller('LoginController', function ($scope, $state, Auth, $window) {
-        $scope.credentials = {
-            username: '',
-            password: ''
-        };
-
-        $scope.login = function (credentials) {
-            Auth.login(credentials).then(res => {
-                $window.localStorage.setItem('jwt', res.data);
-                $state.go('admin.products');
-            });
-        };
     });
