@@ -1,47 +1,58 @@
 var express = require('express');
 var router = express.Router();
 var app = express();
+var path = require('path');
 
 var validateToken = require('../lib/helpers').validateToken;
 
-var productApiHandler = require('./productApiHandler');
-var categoryApiHandler = require('./categoryApiHandler');
-var adminApiHandler = require('./adminApiHandler');
-var referenceApiHandler = require('./referenceApiHandler');
-//var jobApiHandler = require('./jobApiHandler');
-
-/* Define middleware for api , just sercurity purpose*/
-// router.get('*', validateToken);
-// router.post('/product/*', validateToken);
+var productJsonApiHandler = require('./jsonApiHandler/productJsonApiHandler');
+var categoryApiHandler = require('./jsonApiHandler/categoryApiHandler');
+var adminJsonApiHandler = require('./jsonApiHandler/adminJsonApiHandler');
+var referenceJsonApiHandler = require('./jsonApiHandler/referenceJsonApiHandler');
+var jobJsonApiHandler = require('./jsonApiHandler/jobJsonApiHandler');
 
 /* Products api */
-router.get('/products', productApiHandler.getProducts);
-router.get('/product/:productTitle', productApiHandler.getProductsByTitle);
-router.post('/product/add', productApiHandler.addProduct);
-// V1 is receiving the input form with image
-// req.file is an object containing information about image
-router.post('/product/editWithObject', productApiHandler.editProductWithObjectInput);
-// V1 is receiving the input form without image
-router.post('/product/editWithString', productApiHandler.editProductWithStringInput);
-router.post('/product/delete', productApiHandler.deleteProduct);
+router.get('/products', productJsonApiHandler.getProducts);
+router.get('/product/:title', productJsonApiHandler.getProductsByTitle);
+router.post('/product/add', productJsonApiHandler.addProduct);
+router.post('/product/editWithObject', productJsonApiHandler.editProductWithObjectInput);
+router.post('/product/editWithString', productJsonApiHandler.editProductWithStringInput);
+router.post('/product/delete', productJsonApiHandler.deleteProduct);
 
 /* Categories api */
 router.get('/categories', categoryApiHandler.getCategories);
+router.get('/jobsGroup', categoryApiHandler.getJobsGroup);
 
 /* Admin-User api */
-router.post('/login', adminApiHandler.login);
+router.post('/login', adminJsonApiHandler.login);
 
 /* References api */
-router.get('/references', referenceApiHandler.getReferences);
-router.get('/references/:category', referenceApiHandler.getReferencesByCategory);
-router.get('/reference/:_id', referenceApiHandler.getReferenceById);
-router.post('/reference/add', referenceApiHandler.addReference);
-router.post('/reference/editWithObject', referenceApiHandler.editReferenceWithObjectInput);
-router.post('/reference/editWithString', referenceApiHandler.editReferenceWithStringInput);
-router.post('/reference/delete', referenceApiHandler.deleteReference);
+router.get('/references', referenceJsonApiHandler.getReferences);
+router.get('/reference/:title', referenceJsonApiHandler.getReferenceByTitle);
+router.post('/reference/add', referenceJsonApiHandler.addReference);
+router.post('/reference/editWithObject', referenceJsonApiHandler.editReferenceWithObjectInput);
+router.post('/reference/editWithString', referenceJsonApiHandler.editReferenceWithStringInput);
+router.post('/reference/delete', referenceJsonApiHandler.deleteReference);
 
 /* Jobs api*/
-// router.get('/jobsPage', jobApiHandler.getJobsPage);
-// router.get('/job/:position', jobApiHandler.getJobPosition);
+router.get('/jobs', jobJsonApiHandler.getJobs);
+router.get('/job/:section_id/:position', jobJsonApiHandler.getJobPosition);
+router.post('/job/add', jobJsonApiHandler.addJob);
+router.post('/job/editWithImg', jobJsonApiHandler.editJobWithImg);
+router.post('/job/editWithoutImg', jobJsonApiHandler.editJobWithoutImg);
+router.post('/job/delete', jobJsonApiHandler.deleteJob);
+
+/* Download file */
+router.get('/download/:section_id/:jsonfile', function (req, res) {
+    var section_id = req.params.section_id;
+    var jsonfile = req.params.jsonfile;
+    var pathToFile = path.join(__dirname, '../assets/jobs/jobPositions', section_id, jsonfile) + '.json'
+    var downloadName = jsonfile + '.json';
+    res.download(pathToFile, downloadName, function (err) {
+        if(err) {
+            return res.status(500).json(err);
+        }
+    });
+});
 
 module.exports = router;
