@@ -1,20 +1,87 @@
 <div class="container" style="width: 100%">
-    <div class="panel panel-default" ng-repeat="job in jobs">
-        <div class="panel-heading" ng-click="isCollapsed = !isCollapsed">
-            <div class="container center-panel">
-                <!-- <h4 class="center-text">{{job.section_name}}</h4> -->
-                {{job.section_name}}
+    <h1 class="page-header">Jobs</h1>
+
+    <json-export file-name="jobs"></json-export>
+    <preview-anchor page-name="jobs"></preview-anchor>
+    <button type="button" class="btn btn-warning" ng-click="changeVisible()" ng-show="applyChange">Apply Change</button>
+    <div class="pull-right">
+        <div class="btn-group" uib-dropdown>
+            <button id="split-button" type="button" class="btn btn-primary">Add</button>
+            <button type="button" class="btn btn-primary" uib-dropdown-toggle>
+                <span class="caret"></span>
+                <span class="sr-only">Split button!</span>
+            </button>
+            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                <li><a ui-sref="admin.addJob">New Job</a></li>
+                <li><a href="" ng-click="addNewJobGroup()">New Job Group</a></li>
+            </ul>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="panel panel-default" ng-repeat="job in jobs" style="margin-bottom: 25px;">
+        <div class="panel-heading">
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-xs btn-success" ng-click="editJobGroup(job.section_id, job.section_name)">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+                <button type="button" class="btn btn-xs btn-danger" ng-click="deleteJobGroup(job.section_id)">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <input type="checkbox" ng-model="job.isVisible">
             </div>
+            <h4 ng-click="isCollapsed = !isCollapsed" id="jobGroup"><a href="" style="a:hover">{{job.section_name}}</a></h4>
         </div>
         <div class="panel-body" uib-collapse="isCollapsed">
             <div class="row" ng-repeat="data in job.data">
                 <div class="container">
                     <p class="col-md-4">{{data.name}}</p>
-                    <a ui-sref="admin.job({section_id: job.section_id, jsonfile: data.jsonfile})" class="btn btn-xs btn-primary">Edit</a>
+                    <a ui-sref="admin.job({section_id: job.section_id, jsonfile: data.jsonfile})" class="btn btn-xs btn-primary">Detail</a>
                     <button type="button" class="btn btn-xs btn-danger" ng-click="delete(job.section_id, data.jsonfile)">Delete</button>
+                    <a ng-href="api/download/jobs/{{job.section_id}}/{{data.jsonfile}}" class="btn btn-default btn-xs" target="_blank">Export</a>
                     <input type="checkbox" ng-model="data.isVisible">
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script type="text/ng-template" id="addNewJobGroup.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Create new Job</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-2">Name:</label>
+                <div class="col-md-8">
+                    <input type="text" required ng-model="jobGroup" placeholder="New job group....." class="form-control">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="editJobGroup.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Editing</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-2">Name:</label>
+                <div class="col-md-8">
+                    <input type="text" required ng-model="jobGroup" class="form-control">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

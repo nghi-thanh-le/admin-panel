@@ -4,18 +4,21 @@
 
 
 angular.module('myApp.directives', [])
-    .directive('myDownload', function($compile) {
+    .directive('jsonExport', function() {
         return {
             restrict: 'E',
             scope: {
-                getUrlData: '&getData'
+                fileName: '@'
             },
-            link: function(scope, element, attr) {
-                var myURL = window.URL || window.webkitURL;
-                var url = myURL.createObjectURL(scope.getUrlData);
-                element.append($compile(
-                    '<a class="btn btn-default" download="products.json" href="' + url + '">' + Export + '</a>'
-                )(scope));
-            }
+            template: '<a ng-href="api/download/{{fileName}}" class="btn btn-default" target="_blank">Export</a>'
+        }
+    })
+    .directive('previewAnchor', function () {
+        return {
+            restrict: 'E',
+            scope: {
+                pageName: '@'
+            },
+            template: '<a ng-href="http://wiredelta.com/#/{{pageName}}/en" class="btn btn-primary" target="_blank">Preview</a>'
         }
     });

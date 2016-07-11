@@ -3,18 +3,13 @@
 /* Controllers */
 
 angular.module('myApp.controllers')
-    .controller('productsController', function($scope, $state, $window, productsService, toastr) {
+    .controller('productsController', function($scope, $state, $window, productsService, toastr, $http) {
+        $scope.applyChange = false;
         var selectedCategory = null; // null at default but will be string later
 
         $scope.products = null;
-        $scope.getBlob = null;
         productsService.getProducts().then(function(res) {
             $scope.products = res.data;
-            $scope.getBlob = function () {
-                return new Blob(res.data, {
-                    type: "application/json"
-                });
-            };
         });
 
         $scope.selectCategory = function(newCategory) {
@@ -37,14 +32,32 @@ angular.module('myApp.controllers')
             // }
             return selectedCategory == null || product.category.name == selectedCategory;
         };
-
-        $scope.delete = function(title) {
-            productsService.deleteProductByTitle(title).then(value => {
+        $scope.changeVisible = function(_id, isVisible){
+            $http.post('api/product/changeVisible', {
+                _id: _id,
+                isVisible: isVisible
+            }).then(res => {
+                toastr.success(res.data);
+            }, err => {
+                console.log(err);
+            })
+        }
+        $scope.delete = function(_id) {
+            productsService.deleteProduct(_id).then(value => {
                 $window.location.reload();
             });
         };
     })
-    .controller('productController', function($scope, $state, $stateParams, productsService, toastr) {
+    .controller('productController', function($scope, $state, $stateParams, productsService, toastr, $window) {
+        $scope.previewImg = false;
+        $scope.$watch('formInput.imgUrl', function(newValue, oldValue) {
+            if (angular.isObject(newValue)) {
+                $scope.previewImg = true;
+            } else {
+                $scope.previewImg = false;
+            }
+        });
+
         $scope.popularities = productsService.getPopularities();
         var oldTitle = null;
 
@@ -54,11 +67,10 @@ angular.module('myApp.controllers')
         });
 
         $scope.product = null;
-        productsService.getProductByTitle($stateParams.title).then(function(res) {
+        productsService.getProductById($stateParams._id).then(function(res) {
             $scope.product = res.data;
             $scope.formInput = angular.copy($scope.product);
             $scope.formInput.dateAdded = new Date($scope.product.dateAdded);
-            oldTitle = angular.copy($scope.product.title);
         });
 
         $scope.showEditForm = false;
@@ -69,19 +81,19 @@ angular.module('myApp.controllers')
 
         $scope.editProduct = function(product) {
             if (angular.isObject(product.imgUrl)) {
-                productsService.editProduct(product, oldTitle).then(function(res) {
-                    toastr.info('Product edited');
-                    $state.go('admin.products');
+                productsService.editProduct(product).then(function(res) {
+                    $window.location.reload();
                 }, function(err) {
-                    console.log('err::::::::', err);
+                    if (angular.isString(err.data)) {
+                        toastr.error(err.data);
+                    }
                 });
             } else if (angular.isString(product.imgUrl)) {
-                productsService.editProductV2(product, oldTitle).then(function(res) {
-                    toastr.info('Product edited');
-                    $state.go('admin.products');
+                productsService.editProductV2(product).then(function(res) {
+                    $window.location.reload();
                 }, function(err) {
-                    toastr.err(err);
-                })
+                    toastr.error(err);
+                });
             }
         }
     })
@@ -99,8 +111,8 @@ angular.module('myApp.controllers')
 
         $scope.submitForm = function(product) {
             productsService.addProduct(product).then(value => {
-                toastr.error('Added new product');
-                $state.go('admin.products');
+                toastr.success('Added new product');
+                $window.location.reload();
             });
         }
     });

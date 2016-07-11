@@ -1,19 +1,23 @@
 <div class="container" style="width: 100%">
+    <button type="button" class="btn btn-xs btn-success" ng-click="toggleForm()" ng-show="!showEditForm">Edit</button>
+    <button type="button" class="btn btn-xs btn-warning" ng-click="toggleForm()" ng-show="showEditForm">Back</button>
+    <br>
+    <br>
     <div class="row">
         <div class="col-md-8" ng-if="showEditForm">
             <div class="alert alert-dismissible alert-info" style="width: 600px;">
                 <p>Image must have Min/Max Width: 1349px; Min Height: 900px; Max Height: 6000px</p>
             </div>
-            <form class="form-horizontal" ng-submit="editJob(formInput)">
+            <form class="form-horizontal" ng-submit="editJob(formInput)" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Title</label>
-                    <div class="col-md-3">
+                    <div class="col-md-8">
                         <input type="text" ng-model="formInput.title" class="form-control" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Group</label>
-                    <div class="col-md-2">
+                    <div class="col-md-8">
                         <select class="form-control" ng-model="formInput.group">
                             <option ng-repeat="group in jobsGroup">{{group}}</option>
                         </select>
@@ -21,89 +25,90 @@
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Introduction</label>
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <textarea rows="8" cols="40" class="form-control" required ng-model="formInput.introduction"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Person Image</label>
-                    <div class="col-md-3">
-                        <!-- <input type="file" ngf-select ngf-pattern="'image/*'" ng-model="formInput.person_image"
+                    <div class="col-md-8">
+                        <!-- <input type="file" ngf-select ngf-pattern="'image/*'" ng-model="formInput.person_img"
                         class="form-control" ngf-accept="'image/*'" required
                         ngf-min-height="900" ngf-max-height="6000"
                         ngf-min-width="1349" ngf-max-width="1349"> -->
-                        <input type="file" ngf-select ngf-pattern="'image/*'" ng-model="formInput.person_image" class="form-control" ngf-accept="'image/*'" required>
+                        <input type="file" ngf-select ngf-pattern="'image/*'" ng-model="formInput.person_img" class="form-control" ngf-accept="'image/*'">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Persone name</label>
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <input type="text" ng-model="formInput.person_name2" class="form-control" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Title Description</label>
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <input type="text" ng-model="formInput.titleDescription" class="form-control" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Meta Description</label>
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <input type="text" ng-model="formInput.metaDescription" class="form-control" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-2 control-label">First Question</label>
-                    <div class="col-md-6">
-                        <input type="text" ng-model="formInput.interview_question1" class="form-control" required>
+                    <label class="col-lg-2 control-label">Q&A &nbsp;
+                        <button type="button" ng-click="addNew(1)" class="btn btn-primary btn-xs">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </label>
+                    <div class="col-md-10">
+                        <div ng-repeat="questAns in formInput.questAndAns" class="row">
+                            <div class="col-md-10">
+                                <input type="text" ng-model="questAns.question" class="form-control" placeholder="Question" required>
+                                <br>
+                                <input type="text" ng-model="questAns.answer" class="form-control" placeholder="Answer" required>
+                                <br>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" ng-show="!$first" ng-click="remove($index, 1)" class="btn btn-danger btn-xs">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-2 control-label">Answer</label>
-                    <div class="col-md-6">
-                        <input type="text" ng-model="formInput.interview_answer1" class="form-control" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label">Second Question</label>
-                    <div class="col-md-6">
-                        <input type="text" ng-model="formInput.interview_question2" class="form-control" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label">Answer</label>
-                    <div class="col-md-6">
-                        <input type="text" ng-model="formInput.interview_answer2" class="form-control" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label">Third Question</label>
-                    <div class="col-md-6">
-                        <input type="text" ng-model="formInput.interview_question3" class="form-control" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label">Answer</label>
-                    <div class="col-md-6">
-                        <input type="text" ng-model="formInput.interview_answer3" class="form-control" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label">Practical Details</label>
-                    <div class="col-md-6">
-                        <input type="text" ng-model="formInput.practical_detail1" class="form-control" required> <br>
-                        <input type="text" ng-model="formInput.practical_detail2" class="form-control" required> <br>
-                        <input type="text" ng-model="formInput.practical_detail3" class="form-control" required>
+                    <label class="col-lg-2 control-label">Practical Details &nbsp;
+                        <button type="button" ng-click="addNew(2)" class="btn btn-primary btn-xs">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </label>
+                    <div class="col-md-10">
+                        <div ng-repeat="detail in formInput.practical_details track by $index">
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" ng-model="formInput.practical_details[$index]" placeholder="Details of Job" required>
+                                <br>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" ng-show="!$first" ng-click="remove($index, 2)" class="btn btn-danger btn-xs">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
-                        <button type="reset" class="btn btn-xs btn-default">Cancel</button>
-                        <button type="submit" class="btn btn-xs btn-primary">Submit</button>
+                        <button type="reset" class="btn btn-default">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
             </form>
+        </div>
+        <div class="col-md-4" ng-if="showEditForm">
+            <img ngf-src="formInput.person_img" alt="Preview Image" class="img-responsive" ng-if="previewImg">
         </div>
         <div class="row" ng-if="!showEditForm">
             <div class="col-md-8">
@@ -152,7 +157,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="questAns in questAnsArr">
+                    <tr ng-repeat="questAns in job.questAndAns">
                         <td>{{questAns.question}}</td>
                         <td>{{questAns.answer}}</td>
                     </tr>
@@ -162,23 +167,13 @@
         <div class="row" ng-if="!showEditForm">
             <h2>Practical Details</h5>
             <table class="table">
-                <thead>
-                    <tr>
-                        <th ng-repeat="detail in job.practical_details">
-                            Detail {{ $index + 1 }}
-                        </th>
-                    </tr>
-                </thead>
                 <tbody>
-                    <tr>
-                        <td ng-repeat="detail in job.practical_details">
-                            {{detail}}
-                        </td>
+                    <tr ng-repeat="detail in job.practical_details">
+                        <td>{{$index + 1}}</td>
+                        <td>{{detail}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    <button type="button" class="btn btn-xs btn-success" ng-click="toggleForm()" ng-show="!showEditForm">Edit</button>
-    <button type="button" class="btn btn-xs btn-warning" ng-click="toggleForm()" ng-show="showEditForm">Back</button>
 </div>

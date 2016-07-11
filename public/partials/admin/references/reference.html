@@ -1,4 +1,8 @@
 <div class="container" style="width: 100%">
+    <button type="button" class="btn btn-xs btn-success" ng-click="toggleForm()" ng-show="!showEditForm">Edit</button>
+    <button type="button" class="btn btn-xs btn-warning" ng-click="toggleForm()" ng-show="showEditForm">Back</button>
+    <br>
+    <br>
     <div class="row">
         <div class="col-md-8" ng-if="showEditForm">
             <div class="alert alert-dismissible alert-info" style="width: 600px;">
@@ -110,9 +114,8 @@
             </table>
         </div>
         <div class="col-md-4">
-            <img ng-src="/img/references/{{reference.picture}}" class="img-responsive"/>
+            <img ngf-src="formInput.picture" alt="Preview Image" class="img-responsive" ng-if="previewImg">
+            <img ng-src="/img/references/{{reference.picture}}" class="img-responsive" ng-if="!previewImg"/>
         </div>
     </div>
-    <button type="button" class="btn btn-xs btn-success" ng-click="toggleForm()" ng-show="!showEditForm">Edit</button>
-    <button type="button" class="btn btn-xs btn-warning" ng-click="toggleForm()" ng-show="showEditForm">Back</button>
 </div>

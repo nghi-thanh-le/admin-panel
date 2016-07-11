@@ -1,13 +1,77 @@
 <div class="container" style="width: 100%">
-    <h1 class="page-header">Overview <small>Lorem ipsum dolor sit amet</small></h1>
+    <h2 class="page-header">Dashboard
+        <button type="button" class="btn btn-primary btn-sm pull-right" ng-click="add()">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+    </h2>
 
-    <div class="well">
-        <h1>Welcome</h1>
-        <p>
-            Quis est, qui non oderit libidinosam, protervam adolescentiam?
-            Ratio quidem vestra sic cogit. Cum id fugiunt, re eadem defendunt,
-            quae Peripatetici, verba. Qua tu etiam inprudens utebare non numquam.
-            Omnis enim est natura diligens sui.
-        </p>
-    </div>
+    <div class="clearfix"></div>
+
+    <br>
+
+    <uib-accordion close-others="true">
+        <uib-accordion-group heading="{{item.section}}" ng-repeat="item in dashboard">
+            <div class="text-center">
+                {{item.text}}
+            </div>
+            <button type="button" class="btn btn-danger btn-xs pull-right" ng-click="remove(item.section)">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+            <button type="button" class="btn btn-success btn-xs pull-right" ng-click="open(item)">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+        </uib-accordion-group>
+    </uib-accordion>
 </div>
+
+<script type="text/ng-template" id="addToDashboard.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Add</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-2">Text:</label>
+                <div class="col-md-8">
+                    <input type="text" required ng-model="dashboard.section" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Text:</label>
+                <div class="col-md-8">
+                    <textarea required ng-model="dashboard.text" class="form-control" rows="15"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="editDashboard.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Editing</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-2">Section:</label>
+                <div class="col-md-8">
+                    <input type="text" required ng-model="dashboard.section" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Text:</label>
+                <div class="col-md-8">
+                    <textarea required ng-model="dashboard.text" class="form-control" rows="8"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

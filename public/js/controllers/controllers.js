@@ -14,7 +14,7 @@ angular.module('myApp.controllers')
         $scope.login = function(credentials) {
             Auth.login(credentials).then(res => {
                 $window.localStorage.setItem('jwt', res.data);
-                $state.go('admin.products');
+                $state.go('admin.dashboard');
             });
         };
     });

@@ -26,11 +26,11 @@
         <div class="form-group">
             <label class="col-lg-2 control-label">Person Image</label>
             <div class="col-md-3">
-                <!-- <input type="file" ngf-select ngf-pattern="'image/*'" ng-model="job.person_image"
+                <!-- <input type="file" ngf-select ngf-pattern="'image/*'" ng-model="job.person_img"
                 class="form-control" ngf-accept="'image/*'" required
                 ngf-min-height="900" ngf-max-height="6000"
                 ngf-min-width="1349" ngf-max-width="1349"> -->
-                <input type="file" ngf-select ngf-pattern="'image/*'" ng-model="job.person_image" class="form-control" ngf-accept="'image/*'" required>
+                <input type="file" ngf-select ngf-pattern="'image/*'" ng-model="job.person_img" class="form-control" ngf-accept="'image/*'" required>
             </div>
         </div>
         <div class="form-group">
@@ -52,49 +52,43 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-lg-2 control-label">First Question</label>
-            <div class="col-md-6">
-                <input type="text" ng-model="job.interview_question1" class="form-control" required>
+            <label class="col-lg-2 control-label">Q&A &nbsp;
+                <button type="button" ng-click="addNew(1)" class="btn btn-primary btn-xs">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </label>
+            <div class="col-md-10">
+                <div ng-repeat="questAns in job.questAndAns" class="row">
+                    <div class="col-md-8">
+                        <input type="text" ng-model="questAns.question" class="form-control" placeholder="Question" required>
+                        <br>
+                        <input type="text" ng-model="questAns.answer" class="form-control" placeholder="Answer" required>
+                        <br>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" ng-show="!$first" ng-click="remove($index, 1)" class="btn btn-danger btn-xs">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-lg-2 control-label">Answer</label>
+            <label class="col-lg-2 control-label">Practical Details &nbsp;
+                <button type="button" ng-click="addNew(2)" class="btn btn-primary btn-xs">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </label>
             <div class="col-md-6">
-                <input type="text" ng-model="job.interview_answer1" class="form-control" required>
+                <div ng-repeat="detail in job.practical_details track by $index">
+                    <input type="text" class="form-control" ng-model="job.practical_details[$index]" placeholder="Details of Job" required>
+                    <button type="button" ng-show="!$first" ng-click="remove($index, 2)" class="btn btn-danger btn-xs">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                    <br>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-lg-2 control-label">Second Question</label>
-            <div class="col-md-6">
-                <input type="text" ng-model="job.interview_question2" class="form-control" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-lg-2 control-label">Answer</label>
-            <div class="col-md-6">
-                <input type="text" ng-model="job.interview_answer2" class="form-control" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-lg-2 control-label">Third Question</label>
-            <div class="col-md-6">
-                <input type="text" ng-model="job.interview_question3" class="form-control" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-lg-2 control-label">Answer</label>
-            <div class="col-md-6">
-                <input type="text" ng-model="job.interview_answer3" class="form-control" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-lg-2 control-label">Practical Details</label>
-            <div class="col-md-6">
-                <input type="text" ng-model="job.practical_detail1" class="form-control" required> <br>
-                <input type="text" ng-model="job.practical_detail2" class="form-control" required> <br>
-                <input type="text" ng-model="job.practical_detail3" class="form-control" required>
-            </div>
-        </div>
+        </div.
         <div class="form-group">
             <div class="col-lg-10 col-lg-offset-2">
                 <button type="reset" class="btn btn-default">Cancel</button>

@@ -54,7 +54,8 @@ angular.module('myApp', [
             })
             .state('admin.dashboard', {
                 url: '/dashboard',
-                templateUrl: 'partials/admin/main.html'
+                templateUrl: 'partials/admin/main.html',
+                controller: 'dashboardControllers'
             })
             .state('admin.products', {
                 url: '/products',
@@ -62,7 +63,7 @@ angular.module('myApp', [
                 controller: 'productsController'
             })
             .state('admin.product', {
-                url: '/product/:title',
+                url: '/product/:_id',
                 templateUrl: 'partials/admin/products/product.html',
                 controller: 'productController'
             })

@@ -37,8 +37,28 @@ angular.module('myApp.controllers')
                 $window.location.reload();
             });
         };
+
+        $scope.changeVisible = function (title, isVisible) {
+            $http.post('api/reference/changeVisible', {
+                title: title,
+                isVisible: isVisible
+            }).then(res => {
+                toastr.success(res.data);
+            }, err => {
+                console.log(err);
+            });
+        }
     })
     .controller('referenceController', function ($scope, $state, $stateParams, referencesService, toastr) {
+        $scope.previewImg = false;
+        $scope.$watch('formInput.picture', function (newValue, oldValue) {
+            if(angular.isObject(newValue)) {
+                $scope.previewImg = true;
+            } else {
+                $scope.previewImg = false;
+            }
+        });
+
         $scope.categoryList = null;
         var oldTitle = null;
         referencesService.getCategoryList().then(function(res){

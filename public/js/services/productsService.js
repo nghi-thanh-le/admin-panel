@@ -16,9 +16,9 @@ angular.module('myApp.services')
                     method: 'GET'
                 });
             },
-            getProductByTitle: function(title) {
+            getProductById: function(_id) {
                 return $http({
-                    url: '/api/product/' + title,
+                    url: '/api/product/' + _id,
                     method: 'GET'
                 });
             },
@@ -41,8 +41,9 @@ angular.module('myApp.services')
                     }
                 });
             },
-            editProduct: function(product, oldTitle) {
+            editProduct: function(product) {
                 var data = {
+                    _id: product._id,
                     title: product.title,
                     framework: product.framework,
                     category: product.category.name,
@@ -53,17 +54,15 @@ angular.module('myApp.services')
                     popularity: product.popularity,
                     file: product.imgUrl
                 };
-                if(angular.isDefined(oldTitle)) {
-                    data.oldTitle = oldTitle;
-                }
                 return Upload.upload({
                     url: '/api/product/editWithObject',
                     method: 'POST',
                     data: data
                 });
             },
-            editProductV2: function (product, oldTitle) {
+            editProductV2: function (product) {
                 var data = {
+                    _id: product._id,
                     title: product.title,
                     framework: product.framework,
                     category: product.category.name,
@@ -74,14 +73,11 @@ angular.module('myApp.services')
                     popularity: product.popularity,
                     imgUrl: product.imgUrl
                 };
-                if(angular.isDefined(oldTitle)) {
-                    data.oldTitle = oldTitle;
-                }
                 return $http.post('/api/product/editWithString', data);
             },
-            deleteProductByTitle: function(title) {
+            deleteProduct: function(_id) {
                 return $http.post('/api/product/delete',{
-                    title: title
+                    _id: _id
                 });
             }
         };
