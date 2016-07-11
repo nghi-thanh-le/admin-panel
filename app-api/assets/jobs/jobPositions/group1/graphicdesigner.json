@@ -1,0 +1,22 @@
+{
+    "jsonfile": "graphicdesigner",
+    "group": "Technical",
+    "title": "Graphic Designer",
+    "introduction": "As a designer, you are a GENIUS. When it comes to design, you’re like Stephen Hawking meets Brahma meets Gandalf. Your work is like black Saruman sorcery to the client. Your designs will be forged from the molten steel of ten thousand freelance nightmares. Sometimes the client will give you a blurry abomination of rainbow cassata ice cream of a requirement. Your job is then to  turn that into a beautiful image of gentle waves crashing into rocks during a majestic sunrise of web 2.0 lovemaking",
+    "person_img": "eugene-s-effect-ghost.png",
+    "person_name": "EUGENE",
+    "person_name2": "Eugene",
+    "questAndAns": [{
+        "question": "Hi Eugene Can you tell me what kind of mission I can expect as a Graphic Designer at WD?",
+        "answer": "<br>You will work under the direct supervision of our Design Lead to create high visual impact solutions for web, mobile and animations that meet or exceed client expectations.<br><br>"
+    }, {
+        "question": "What would you define as the must-have primary skills for that job?",
+        "answer": "Good level of spoken and written English <br><br> Young and dynamic. Students and recent graduates are welcome, but they must possess their own design portfolio  <br><br> Perfect mastery of Adobe Creative Suite, specifically Photoshop and Illustrator <br><br> Experience designing for the mobile platforms <br><br> Knowledge of responsive design <br><br> Comprehensive understanding of interactivity & the Web and the fundamentals of information architecture <br><br> Passion for design and eagerness to collaborate with other creative people"
+    }, {
+        "question": "What about some nice-to-have secondary skills?",
+        "answer": "Ability to create simple animations with Flash or After Effects <br><br> Interest in video-edition with After Effects, Maya, 3D Max <br><br>Basic knowledge of Adobe Indesign"
+    }],
+    "practical_details": ["Location: Coimbatore (India), Mysore (India) or Copenhagen (Denmark)", "Flexible work schedule", "Compensation: Based on experience and skills"],
+    "titleDescription": "Jobs | Join Us As Graphic Designer | Wiredelta",
+    "metaDescription": "Join us as Graphic Designer. You will be our visual communicator who designs and develops logos, websites and mobile applications for prestigious clients."
+}
