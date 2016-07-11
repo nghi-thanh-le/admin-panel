@@ -11,7 +11,8 @@
     },
     "popularity": 0,
     "previewUrl": "shop.example.com/themes/example-0",
-    "imgUrl": "example-0.png"
+    "imgUrl": "example-0.png",
+    "isVisible": true
 }, {
     "framework": "angular",
     "category": {
@@ -25,7 +26,8 @@
     },
     "popularity": 0,
     "previewUrl": "shop.example.com/themes/example-1",
-    "imgUrl": "example-1.png"
+    "imgUrl": "example-1.png",
+    "isVisible": true
 }, {
     "framework": "express",
     "category": {
@@ -39,7 +41,8 @@
     },
     "popularity": 0,
     "previewUrl": "shop.example.com/themes/example-2",
-    "imgUrl": "example-2.png"
+    "imgUrl": "example-2.png",
+    "isVisible": true
 }, {
     "framework": "wordpress",
     "category": {
@@ -53,7 +56,8 @@
     },
     "popularity": 0,
     "previewUrl": "shop.example.com/themes/example-3",
-    "imgUrl": "example-3.png"
+    "imgUrl": "example-3.png",
+    "isVisible": true
 }, {
     "framework": "angular",
     "category": {
@@ -67,7 +71,8 @@
     },
     "popularity": 0,
     "previewUrl": "shop.example.com/themes/example-4",
-    "imgUrl": "example-4.png"
+    "imgUrl": "example-4.png",
+    "isVisible": true
 }, {
     "framework": "ios",
     "category": {
@@ -81,7 +86,8 @@
     },
     "popularity": 0,
     "previewUrl": "shop.example.com/themes/example-5",
-    "imgUrl": "example-5.png"
+    "imgUrl": "example-5.png",
+    "isVisible": true
 }, {
     "framework": "android",
     "category": {
@@ -95,7 +101,8 @@
     },
     "popularity": 0,
     "previewUrl": "shop.example.com/themes/example-6",
-    "imgUrl": "example-6.png"
+    "imgUrl": "example-6.png",
+    "isVisible": true
 }, {
     "framework": "html",
     "category": {
@@ -109,5 +116,6 @@
     },
     "popularity": 0,
     "previewUrl": "shop.example.com/themes/example-7",
-    "imgUrl": "example-7.png"
+    "imgUrl": "example-7.png",
+    "isVisible": true
 }]
