@@ -10,7 +10,6 @@ var Async = require('async');
 jsonfile.spaces = 4;
 
 var pathForReferenceJson = path.join(__dirname, '../../assets/references/references.json');
-var pathForCategories = path.join(__dirname, '../assets/categories/categories.json');
 var pathForUploadPic = path.join(__dirname, '../../../public/img/references');
 
 var storage = multer.diskStorage({
@@ -72,7 +71,8 @@ var addReference = function(req, res) {
             category: {
                 _id: helpers._idForCategory(req.body.category),
                 name: req.body.category
-            }
+            },
+            isVisible: true
         };
         jsonfile.readFile(pathForReferenceJson, function(err, references) {
             if (err) {
@@ -230,7 +230,30 @@ var deleteReference = function(req, res) {
             }
         }
     });
-}
+};
+
+var changeVisible = function (req, res) {
+    var title = req.body.title;
+    var isVisible = req.body.isVisible;
+    jsonfile.readFile(pathForReferenceJson, function (err, references) {
+        if(err) {
+            return helpers.sendJsonResponse(res, 500, err);
+        }
+        var index = _.findIndex(references, function (reference) {
+            return reference.title == title;
+        });
+        if(index < 0) {
+            return helpers.sendJsonResponse(res, 404, 'Not found!!!!');
+        }
+        references[index].isVisible = isVisible;
+        jsonfile.writeFile(pathForReferenceJson, references, function (err) {
+            if(err) {
+                return helpers.sendJsonResponse(res, 500, err);
+            }
+            helpers.sendJsonResponse(res, 200, 'Change visibility done!');
+        })
+    });
+};
 
 module.exports = {
     getReferences: getReferences,
@@ -238,5 +261,6 @@ module.exports = {
     addReference: addReference,
     editReferenceWithStringInput: editReferenceWithStringInput,
     editReferenceWithObjectInput: editReferenceWithObjectInput,
-    deleteReference: deleteReference
+    deleteReference: deleteReference,
+    changeVisible: changeVisible
 }

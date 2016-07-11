@@ -1,5 +1,6 @@
 var path = require('path');
 var fs = require('fs');
+var fse = require('fs-extra');
 var jsonfile = require('jsonfile');
 var helpers = require('../../lib/helpers');
 var _ = require('lodash');
@@ -47,8 +48,55 @@ var getJobPosition = function(req, res) {
     });
 };
 
-var addGroup = function (req, res) {
+var addGroup = function(req, res) {
+    // {
+    //     "section_name": "Test",
+    //     "section_id": "test",
+    //     "data": []
+    // }
+    var newJobSection = {
+        section_name: req.body.section_name,
+        section_id: req.body.section_name.toLowerCase(),
+        isVisible: true,
+        data: []
+    };
 
+    Async.parallel([
+        function(callback) {
+            // write to jobs.json
+            jsonfile.readFile(jobs, function(err, jobsArr) {
+                if (err) {
+                    callback(err, null);
+                } else {
+                    jobsArr.push(newJobSection);
+                    jsonfile.writeFile(jobs, jobsArr, function(err) {
+                        if (err) {
+                            callback(err, null);
+                        } else {
+                            callback(null, "write to jobs.json done!");
+                        }
+                    });
+                }
+            });
+        },
+        function(callback) {
+            // create new folder in jobsPosition
+            var dirToMake = path.join(jobPositions, newJobSection.section_id);
+            console.log(dirToMake);
+            fse.mkdirs(dirToMake, function(err) {
+                if (err) {
+                    callback(err, null);
+                } else {
+                    callback(null, 'create folder done!');
+                }
+            })
+        }
+    ], function(err, results) {
+        if (err) {
+            return helpers.sendJsonResponse(res, 500, err);
+        }
+        helpers.sendJsonResponse(res, 200, results);
+    });
 };
 
 var addJob = function(req, res) {
@@ -61,8 +109,7 @@ var addJob = function(req, res) {
             person_img: req.file.originalname,
             person_name2: req.body.person_name2,
             person_name: req.body.person_name2.split(' ')[0].toUpperCase(),
-            interview_questions: req.body.interview_questions,
-            interview_answers: req.body.interview_answers,
+            questAndAns: req.body.questAndAns,
             practical_details: req.body.practical_details,
             titleDescription: req.body.titleDescription,
             metaDescription: req.body.metaDescription,
@@ -99,12 +146,13 @@ var addJob = function(req, res) {
                     person_img: post.person_img,
                     person_name: post.person_name,
                     person_name2: post.person_name2,
-                    interview_questions: post.interview_questions,
-                    interview_answers: post.interview_answers,
+                    questAndAns: post.questAndAns,
                     practical_details: post.practical_details,
                     titleDescription: post.titleDescription,
-                    metaDescription: post.metaDescription
+                    metaDescription: post.metaDescription,
+                    isVisible: true
                 };
+
                 var pathForWriting = __dirname + '/../../assets/jobs/jobPositions/' + post.section_id + '/' + post.jsonfile;
                 pathForWriting = path.normalize(pathForWriting) + '.json';
                 jsonfile.writeFile(pathForWriting, data, function(err) {
@@ -135,10 +183,9 @@ var editJobWithImg = function(req, res) {
             jsonfile: req.body.title.replace(/\s/g, '').toLowerCase(),
             introduction: req.body.introduction,
             person_img: req.file.originalname,
-            person_name: req.body.person_name,
             person_name2: req.body.person_name2,
-            interview_questions: req.body.interview_questions,
-            interview_answers: req.body.interview_answers,
+            person_name: req.body.person_name2.split(' ')[0].toUpperCase(),
+            questAndAns: req.body.questAndAns,
             practical_details: req.body.practical_details,
             titleDescription: req.body.titleDescription,
             metaDescription: req.body.metaDescription,
@@ -146,15 +193,18 @@ var editJobWithImg = function(req, res) {
             old_jsonfile: req.body.old_jsonfile // help where to find where the freak it is in job.data
         };
 
-        var pathForOldJsonFile = jobPositions + post.old_section_id + '/' + post.old_jsonfile;
-        pathForOldJsonFile = path.normalize(pathForOldJsonFile) + '.json';
+        var pathForOldJsonFile = jobPositions + post.old_section_id + '/' + post.old_jsonfile + '.json';
+        pathForOldJsonFile = path.normalize(pathForOldJsonFile);
 
         Async.series([
             function(callback) {
-                // this function is find the object in jobs collection
+                // this function is find the object in jobs.json
                 // get the object based on section_id
                 // delete it and save
                 jsonfile.readFile(jobs, function(err, arrJobs) {
+                    if (err) {
+                        callback(err, null);
+                    }
                     var job = arrJobs.find(function(jobInArr) {
                         return jobInArr.section_id == post.old_section_id;
                     });
@@ -162,50 +212,39 @@ var editJobWithImg = function(req, res) {
                         return jobInData.jsonfile == post.old_jsonfile;
                     });
                     job.data.splice(indexInDataArr, 1);
-                    jsonfile.writeFile(jobs, arrJobs, function(err) {
-                        if (err) {
-                            callback(err, null);
-                        } else {
-                            callback(null, 'delete the job in jobs.json done!!!!');
-                        }
-                    });
-                });
-            },
-            function(callback) {
-                // this function is find the object in jobs collection
-                // get the object based on section_id
-                // write new
-                jsonfile.readFile(jobs, function(err, arrJobs) {
-                    var job = arrJobs.find(function(jobInArr) {
+
+                    var editedJob = arrJobs.find(function(jobInArr) {
                         return jobInArr.section_name == post.group;
                     });
-                    job.data.push({
+                    editedJob.data.push({
                         name: post.title,
                         description: post.introduction,
                         jsonfile: post.jsonfile,
                         isVisible: true
                     });
+
                     jsonfile.writeFile(jobs, arrJobs, function(err) {
                         if (err) {
                             callback(err, null);
                         } else {
-                            callback(null, 'push the job in jobs.json done!!!!');
+                            callback(null, 'edited the job in jobs.json done!!!!');
                         }
                     });
                 });
             },
-            function (callback) {
-                jsonfile.readFile(pathForOldJsonFile, function (err, job) {
-                    if(err) {
+            function(callback) {
+                jsonfile.readFile(pathForOldJsonFile, function(err, job) {
+                    if (err) {
                         return callback(err, null);
                     }
                     var pathForUnlinkPic = pathForUploadPic + '/' + job.person_img;
                     pathForUnlinkPic = path.normalize(pathForUnlinkPic);
-                    fs.unlink(pathForUnlinkPic, function (err) {
-                        if(err) {
-                            return callback(err, null);
+                    fs.unlink(pathForUnlinkPic, function(err) {
+                        if (err) {
+                            callback(err, null);
+                        } else {
+                            callback(null, 'delete old image done!');
                         }
-                        callback(null, 'delete old image done!');
                     });
                 });
             },
@@ -227,8 +266,7 @@ var editJobWithImg = function(req, res) {
                     person_img: post.person_img,
                     person_name: post.person_name,
                     person_name2: post.person_name2,
-                    interview_questions: post.interview_questions,
-                    interview_answers: post.interview_answers,
+                    questAndAns: req.body.questAndAns,
                     practical_details: post.practical_details,
                     titleDescription: post.titleDescription,
                     metaDescription: post.metaDescription
@@ -259,22 +297,28 @@ var editJobWithoutImg = function(req, res) {
         jsonfile: req.body.title.replace(/\s/g, '').toLowerCase(),
         introduction: req.body.introduction,
         person_img: req.body.person_img,
-        person_name: req.body.person_name,
         person_name2: req.body.person_name2,
-        interview_questions: req.body.interview_questions,
-        interview_answers: req.body.interview_answers,
+        person_name: req.body.person_name2.split(' ')[0].toUpperCase(),
+        questAndAns: req.body.questAndAns,
         practical_details: req.body.practical_details,
         titleDescription: req.body.titleDescription,
         metaDescription: req.body.metaDescription,
         old_section_id: req.body.old_section_id, // section_id is used to find where the freak it is in jobs.json,
         old_jsonfile: req.body.old_jsonfile // help where to find where the freak it is in job.data
     };
+
+    var pathForOldJsonFile = jobPositions + post.old_section_id + '/' + post.old_jsonfile + '.json';
+    pathForOldJsonFile = path.normalize(pathForOldJsonFile);
+
     Async.series([
         function(callback) {
-            // this function is find the object in jobs collection
+            // this function is find the object in jobs.json
             // get the object based on section_id
             // delete it and save
             jsonfile.readFile(jobs, function(err, arrJobs) {
+                if (err) {
+                    callback(err, null);
+                }
                 var job = arrJobs.find(function(jobInArr) {
                     return jobInArr.section_id == post.old_section_id;
                 });
@@ -282,42 +326,28 @@ var editJobWithoutImg = function(req, res) {
                     return jobInData.jsonfile == post.old_jsonfile;
                 });
                 job.data.splice(indexInDataArr, 1);
-                jsonfile.writeFile(jobs, arrJobs, function(err) {
-                    if (err) {
-                        callback(err, null);
-                    } else {
-                        callback(null, 'delete the job in jobs.json done!!!!');
-                    }
-                });
-            });
-        },
-        function(callback) {
-            // this function is find the object in jobs collection
-            // get the object based on section_id
-            // write new
-            jsonfile.readFile(jobs, function(err, arrJobs) {
-                var job = arrJobs.find(function(jobInArr) {
+
+                var editedJob = arrJobs.find(function(jobInArr) {
                     return jobInArr.section_name == post.group;
                 });
-                job.data.push({
+                editedJob.data.push({
                     name: post.title,
                     description: post.introduction,
                     jsonfile: post.jsonfile,
                     isVisible: true
                 });
+
                 jsonfile.writeFile(jobs, arrJobs, function(err) {
                     if (err) {
                         callback(err, null);
                     } else {
-                        callback(null, 'push the job in jobs.json done!!!!');
+                        callback(null, 'edited the job in jobs.json done!!!!');
                     }
                 });
             });
         },
         function(callback) {
-            var pathForUnlink = jobPositions + post.old_section_id + '/' + post.old_jsonfile;
-            pathForUnlink = path.normalize(pathForUnlink) + '.json';
-            fs.unlink(pathForUnlink, function(err) {
+            fs.unlink(pathForOldJsonFile, function(err) {
                 if (err) {
                     callback(err, null);
                 } else {
@@ -334,8 +364,7 @@ var editJobWithoutImg = function(req, res) {
                 person_img: post.person_img,
                 person_name: post.person_name,
                 person_name2: post.person_name2,
-                interview_questions: post.interview_questions,
-                interview_answers: post.interview_answers,
+                questAndAns: req.body.questAndAns,
                 practical_details: post.practical_details,
                 titleDescription: post.titleDescription,
                 metaDescription: post.metaDescription
@@ -418,11 +447,191 @@ var deleteJob = function(req, res) {
     });
 };
 
+var editJobGroup = function(req, res) {
+    var section_name = req.body.section_name;
+    var old_section_id = req.body.old_section_id;
+
+    jsonfile.readFile(jobs, function(err, jobsArr) {
+        if (err) {
+            return helpers.sendJsonResponse(res, 500, err);
+        }
+
+        var index = _.findIndex(jobsArr, function(jobInArr) {
+            return jobInArr.section_id == old_section_id;
+        });
+
+        // obviously index has to be >= 0 -> no need for extra validate :/
+        // I hope so....
+        jobsArr[index].section_name = section_name;
+        jobsArr[index].section_id = section_name.toLowerCase();
+
+        Async.series([
+            function(callback) {
+                jsonfile.writeFile(jobs, jobsArr, function(err) {
+                    if (err) {
+                        callback(err, null);
+                    } else {
+                        callback(null, 'rename in jobs.json done!');
+                    }
+                });
+            },
+            function(callback) {
+                Async.each(jobsArr[index].data, function(item, eachCallback) {
+                        var pathToRead = jobPositions + old_section_id + '\\' + item.jsonfile + '.json';
+                        pathToRead = path.normalize(pathToRead);
+                        jsonfile.readFile(pathToRead, function(err, job) {
+                            if (err) {
+                                eachCallback(err);
+                            } else {
+                                job.group = section_name;
+                                jsonfile.writeFile(pathToRead, job, function(err) {
+                                    if (err) {
+                                        eachCallback(err);
+                                    } else {
+                                        eachCallback();
+                                    }
+                                });
+                            }
+                        });
+                    },
+                    function(err) {
+                        if (err) {
+                            callback(err, null);
+                        } else {
+                            callback(null, 'change group of job in jobPositions folder done!!!');
+                        }
+                    });
+            },
+            function(callback) {
+                var oldPath = path.join(jobPositions, old_section_id);
+                var newPath = path.join(jobPositions, section_name.toLowerCase());
+                fs.rename(oldPath, newPath, function(err) {
+                    if (err) {
+                        callback(err, null);
+                    } else {
+                        callback(null, 'rename folder done!');
+                    }
+                });
+            }
+        ], function(err, results) {
+            if (err) {
+                return helpers.sendJsonResponse(res, 500, err);
+            }
+            helpers.sendJsonResponse(res, 200, results);
+        });
+    });
+}
+
+var deleteJobGroup = function(req, res) {
+    var section_id = req.body.section_id;
+    jsonfile.readFile(jobs, function(err, jobsArr) {
+        if (err) {
+            return helpers.sendJsonResponse(res, 500, err);
+        }
+        var index = _.findIndex(jobsArr, function(jobInArr) {
+            return jobInArr.section_id == section_id;
+        });
+        if (index < 0) {
+            return helpers.sendJsonResponse(res, 404, 'section not found! check section id');
+        }
+        var jobData = jobsArr[index];
+        if (util.isArray(jobData.data)) {
+            if (jobData.data.length > 0) {
+                helpers.sendJsonResponse(res, 500, 'User has to empty job\'s category before deleting');
+            } else {
+                Async.parallel([
+                    function(callback) {
+                        jobsArr.splice(index, 1);
+                        jsonfile.writeFile(jobs, jobsArr, function(err) {
+                            if (err) {
+                                callback(err, null)
+                            }
+                            callback(null, 'Delete job\'s group done!');
+                        });
+                    },
+                    function(callback) {
+                        var pathForRemoveDir = path.join(jobPositions, section_id);
+                        fse.remove(pathForRemoveDir, function(err) {
+                            if (err) {
+                                callback(err, null);
+                            } else {
+                                callback(null, 'remove folder done!');
+                            }
+                        });
+                    }
+                ], function(err, results) {
+                    if (err) {
+                        return helpers.sendJsonResponse(res, 500, err);
+                    }
+                    helpers.sendJsonResponse(res, 200, results);
+                });
+            }
+        }
+    });
+}
+
+var changeVisible = function(req, res) {
+    var arrVisible = req.body.arrVisible;
+    jsonfile.readFile(jobs, function(err, jobsJson) {
+        if (err) {
+            return helpers.sendJsonResponse(res, 500, err);
+        }
+        Async.map(arrVisible,
+            function(item, callback) {
+                var index = _.findIndex(jobsJson, function(job) {
+                    return job.section_id == item.section_id;
+                });
+                if (index < 0) {
+                    callback('not found', null);
+                } else {
+                    var job = jobsJson[index];
+                    job.isVisible = item.isVisible;
+                    console.log('item:::', item);
+                    Async.each(job.data,
+                        function(data, eachCallback) {
+                            var indexInItemData = _.findIndex(item.data, function(idontknow) {
+                                return idontknow.jsonfile == data.jsonfile;
+                            });
+                            if (indexInItemData < 0) {
+                                eachCallback('not found in each loop');
+                            } else {
+                                data.isVisible = item.data[indexInItemData].isVisible;
+                                eachCallback();
+                            }
+                        },
+                        function(err) {
+                            if (err) {
+                                callback(err, null);
+                            } else {
+                                callback(null, job);
+                            }
+                        });
+                }
+            },
+            function(err, results) {
+                if (err) {
+                    return helpers.sendJsonResponse(res, 500, 'err');
+                }
+                // write back to jobs.json and send results to client
+                jsonfile.writeFile(jobs, results, function(err) {
+                    if (err) {
+                        return helpers.sendJsonResponse(res, 500, err);
+                    }
+                    helpers.sendJsonResponse(res, 200, 'Change visibility done!');
+                })
+            });
+    });
+};
+
 module.exports = {
     getJobs: getJobs,
     getJobPosition: getJobPosition,
+    addGroup: addGroup,
     addJob: addJob,
     editJobWithImg: editJobWithImg,
     editJobWithoutImg: editJobWithoutImg,
-    deleteJob: deleteJob
+    editJobGroup: editJobGroup,
+    deleteJob: deleteJob,
+    deleteJobGroup: deleteJobGroup,
+    changeVisible: changeVisible
 }

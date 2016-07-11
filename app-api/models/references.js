@@ -15,7 +15,8 @@ var References = mongoose.Schema({
     category: {
         _id: Number,
         name: String
-    }
+    },
+    isVisible: Boolean
 });
 
 module.exports = mongoose.model('reference', References);

@@ -23,7 +23,8 @@ var Products = mongoose.Schema({
     buyDomainUrl: {
         withDomainUrl: String,
         withoutDomainUrl: String
-    }
+    },
+    isVisible: Boolean
 });
 
 module.exports = mongoose.model('product', Products);
