@@ -9,54 +9,62 @@ OR
 'user strict';
 
 var path = require('path');
-var fs = require('fs');
+var jsonfile = require('jsonfile');
 var mongoose = require('mongoose');
 var Products = require('../models/products');
 var Q = require('q');
+var Async = require('async');
 
-var productsPath = path.join(__dirname, '../models/products.json');
+var productsPath = path.join(__dirname, '../assets/products/products.json');
 var productsArrJson;
 
-mongoose.connect('mongodb://localhost/admin-panel', function(err) {
+mongoose.connect('mongodb://localhost/admin-panel-github', function(err) {
     if (err) throw err;
     console.log('Mongoose database connected!!');
 
     Products.remove({}, function (err) {
-        if(err) throw err;
-        fs.readFile(productsPath, 'utf8', function(err, obj) {
-            var promises = [];
-            productsArrJson = JSON.parse(obj);
-            productsArrJson.forEach(function(value) {
-                var product = new Products();
+        if(err) {
+            throw err;
+        } else {
+            jsonfile.readFile(productsPath, function (err, products) {
+                Async.each(products, function (value, callback) {
+                    var product = new Products();
+                    product.title = value.title;
+                    product.category = {
+                        _id: value.category._id,
+                        name: value.category.name
+                    };
+                    product.framework = value.framework;
+                    product.imgUrl = value.imgUrl;
+                    product.popularity = value.popularity;
+                    product.previewUrl = value.previewUrl;
+                    product.buyDomainUrl = {
+                        withDomainUrl: value.buyDomainUrl.withDomainUrl,
+                        withoutDomainUrl: value.buyDomainUrl.withoutDomainUrl
+                    };
+                    product.isVisible = value.isVisible;
 
-                product.title = value.title;
-                product.category = {
-                    _id: value.category._id,
-                    name: value.category.name
-                };
-                product.framework = value.framework;
-                product.imgUrl = value.imgUrl;
-                product.popularity = value.popularity;
-                product.previewUrl = value.previewUrl;
-                product.buyDomainUrl = {
-                    withDomainUrl: value.buyDomainUrl.withDomainUrl,
-                    withoutDomainUrl: value.buyDomainUrl.withoutDomainUrl
-                };
-
-                promises.push(product.save());
-            });
-            Q.all(promises).then(value => {
-                console.log("Initialize products collection");
-                mongoose.connection.close(function(err) {
-                    if (err) {
-                        throw err;
+                    product.save(function (err) {
+                        if(err) {
+                            callback(err);
+                        } else {
+                            callback();
+                        }
+                    });
+                }, function (err) {
+                    if(err) {
+                        throw err
+                    } else {
+                        console.log('Initializing Products collection done!!!!');
+                        mongoose.connection.close(function(err) {
+                            if (err) {
+                                throw err;
+                            }
+                            console.log("Collection inserted and close db connection");
+                        });
                     }
-
-                    console.log("Collections inserted and close db connection");
                 });
-            }).catch(err => {
-                throw err;
             });
-        });
+        }
     });
 });
