@@ -103,3 +103,7 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+
+#jobGroup a:hover {
+    text-decoration: none;
+}
