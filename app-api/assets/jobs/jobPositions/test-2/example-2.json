@@ -1,0 +1,26 @@
+{
+    "jsonfile": "example-2",
+    "group": "Test-2",
+    "title": "Example-2",
+    "introduction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quae similitudo in genere etiam humano apparet. Quid turpius quam sapientis vitam ex insipientium sermone pendere? Quod autem principium officii quaerunt, melius quam Pyrrho; Si stante, hoc natura videlicet vult, salvam esse se, quod concedimus; Huius, Lyco, oratione locuples, rebus ipsis ielunior.\r\n\r\nCur post Tarentum ad Archytam? Sed virtutem ipsam inchoavit, nihil amplius. Non enim, si omnia non sequebatur, idcirco non erat ortus illinc. Quid ergo aliud intellegetur nisi uti ne quae pars naturae neglegatur?\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Quae similitudo in genere etiam humano apparet. Quid turpius quam sapientis vitam ex insipientium sermone pendere? Quod autem principium officii quaerunt, melius quam Pyrrho; Si stante, hoc natura videlicet vult, salvam esse se, quod concedimus; Huius, Lyco, oratione locuples, rebus ipsis ielunior.\r\n\r\nCur post Tarentum ad Archytam? Sed virtutem ipsam inchoavit, nihil amplius. Non enim, si omnia non sequebatur, idcirco non erat ortus illinc. Quid ergo aliud intellegetur nisi uti ne quae pars naturae neglegatur?",
+    "person_img": "placeholder.png",
+    "person_name": "NGHI",
+    "person_name2": "Nghi",
+    "questAndAns": [
+        {
+            "question": "Question",
+            "answer": "Answer"
+        },
+        {
+            "question": "Question 2",
+            "answer": "Answer 2"
+        }
+    ],
+    "practical_details": [
+        "Details 1",
+        "Details 2"
+    ],
+    "titleDescription": "Title",
+    "metaDescription": "Meta",
+    "isVisible": true
+}

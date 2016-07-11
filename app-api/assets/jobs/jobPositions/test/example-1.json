@@ -1,0 +1,20 @@
+{
+    "jsonfile": "example-1",
+    "group": "Test",
+    "title": "Example-1",
+    "introduction": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quae similitudo in genere etiam humano apparet. Quid turpius quam sapientis vitam ex insipientium sermone pendere? Quod autem principium officii quaerunt, melius quam Pyrrho; Si stante, hoc natura videlicet vult, salvam esse se, quod concedimus; Huius, Lyco, oratione locuples, rebus ipsis ielunior.\r\n\r\nCur post Tarentum ad Archytam? Sed virtutem ipsam inchoavit, nihil amplius. Non enim, si omnia non sequebatur, idcirco non erat ortus illinc. Quid ergo aliud intellegetur nisi uti ne quae pars naturae neglegatur?",
+    "person_img": "placeholer.png",
+    "person_name": "NGHI",
+    "person_name2": "Nghi",
+    "questAndAns": [
+        {
+            "question": "Question",
+            "answer": "Answer"
+        }
+    ],
+    "practical_details": [
+        "Details 1"
+    ],
+    "titleDescription": "Title",
+    "metaDescription": "Meta"
+}
