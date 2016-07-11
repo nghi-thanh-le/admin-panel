@@ -19,7 +19,7 @@
                                     `=---='
                  .............................................
                       My code is gonna make you cry so hard
-                      May the Buddha be with you - ( ͡° ͜ʖ ͡°)﻿
+                      May the Buddha be with you  ◉︵◉
 */
 var express = require('express');
 var path = require('path');
@@ -27,9 +27,12 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var api = require('./app-api/routes/api');
+var db = require('./app-api/models/db');
 var index = require('./app-server/routes/index');
 
 var app = express();
+
+db();
 
 app.use(logger('dev'));
 app.use(cors());
