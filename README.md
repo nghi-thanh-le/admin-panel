@@ -17,5 +17,8 @@ bower install
 node app-api/lib/initDbProducts.js
 node bin/www
 ```
+
+The username and password are both admin for logging in.
+
 To modify the connection for database:
  - Goes to app-api/models/db.js and change the dbUrl property
